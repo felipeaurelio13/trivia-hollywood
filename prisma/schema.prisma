@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Movie {
+  id                String            @id @default(cuid())
+  slug              String            @unique
+  title             String
+  releaseYear       Int
+  decade            String
+  productionCountry String
+  distributor       String
+  director          String
+  topCast           String
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  nominations       OscarNomination[]
+
+  @@index([releaseYear])
+  @@index([director])
+}
+
+model OscarNomination {
+  id           String  @id @default(cuid())
+  movieId      String
+  ceremonyYear Int
+  category     String
+  won          Boolean @default(false)
+  movie        Movie   @relation(fields: [movieId], references: [id], onDelete: Cascade)
+
+  @@index([movieId])
+  @@index([ceremonyYear])
+}
