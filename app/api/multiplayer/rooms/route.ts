@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createRoom } from '@/lib/multiplayer/roomService';
 
+export const dynamic = 'force-static';
+
 const createRoomSchema = z.object({
   maxPlayers: z.number().int()
 });
