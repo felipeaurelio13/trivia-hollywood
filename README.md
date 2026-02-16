@@ -79,11 +79,12 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
-## Novedades de UX y despliegue (v0.10.1)
+## Novedades de UX y despliegue (v0.10.2)
 - Multiplayer en GitHub Pages ahora funciona apuntando a un backend externo configurable con `NEXT_PUBLIC_MULTIPLAYER_API_BASE_URL`.
 - El cliente multiplayer ya no depende únicamente de rutas relativas: crea/busca/une sala usando la URL base configurada.
 - La UI mantiene feedback claro: bloquea acciones cuando falta backend y muestra estado activo cuando sí está configurado.
 - Se añadieron pruebas unitarias para blindar la resolución de URLs de multiplayer y el comportamiento de la pantalla en export estático.
+- En el feedback post-respuesta, el rótulo "Explicación" se renombró a "Dato curioso" para que el texto refleje mejor el contenido mostrado al usuario.
 
 ## Novedades de UX y calidad (v0.10.0)
 - El dataset curado se amplió a 54 largometrajes elegibles (USA + >=1 nominación Oscar) para reducir repeticiones y mejorar cobertura histórica en modo solo.

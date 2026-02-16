@@ -37,7 +37,7 @@ test('pregunta completa visible, feedback útil y CTA accesible en juego', async
 
   await firstOption.click();
 
-  const explanationTitle = page.getByText('Explicación', { exact: true });
+  const explanationTitle = page.getByText('Dato curioso', { exact: true });
   await expect(explanationTitle).toBeVisible();
   await expect(nextButton).toBeEnabled();
 });

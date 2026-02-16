@@ -158,7 +158,7 @@ export default function SoloPlayPage() {
             <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-cyan-200">
               {selected === question.correctIndex ? '¡Respuesta correcta!' : 'Respuesta incorrecta'}
             </p>
-            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-cyan-200">Explicación</p>
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-cyan-200">Dato curioso</p>
             <p>{question.explanation}</p>
           </div>
         ) : null}
