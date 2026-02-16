@@ -75,7 +75,8 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
-## Novedades de UX (v0.9.3)
+## Novedades de UX (v0.9.4)
+- Nuevo bloque de diagnóstico en Ajustes para explicar por qué a veces se ve el README en lugar de la app y cómo corregirlo en GitHub Pages (URL correcta + fuente GitHub Actions).
 - Se documenta explícitamente la URL esperada de GitHub Pages (`https://<tu-usuario>.github.io/trivia-hollywood/`) y dónde verificar la URL final publicada (`page_url` en Actions).
 - En despliegue estático de GitHub Pages, la pantalla multiplayer ahora informa claramente que requiere runtime server y desactiva acciones de crear/buscar/unirse para evitar errores de uso.
 - La pregunta en juego se muestra completa (sin truncado con puntos suspensivos).
