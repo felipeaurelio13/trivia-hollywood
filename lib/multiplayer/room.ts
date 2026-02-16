@@ -10,6 +10,24 @@ export function createRoomCode(randomFn: () => number = Math.random) {
   }).join('');
 }
 
+export function createUniqueRoomCode(
+  existingCodes: Iterable<string>,
+  randomFn: () => number = Math.random,
+  maxAttempts = 50
+) {
+  const normalizedCodes = new Set(Array.from(existingCodes, (code) => normalizeRoomCode(code)));
+
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    const candidate = createRoomCode(randomFn);
+
+    if (!normalizedCodes.has(candidate)) {
+      return candidate;
+    }
+  }
+
+  throw new Error('No se pudo generar un código de sala único. Intenta nuevamente.');
+}
+
 export function normalizeRoomCode(value: string) {
   return value.trim().toUpperCase();
 }

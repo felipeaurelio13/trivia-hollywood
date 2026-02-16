@@ -16,6 +16,14 @@ App web mobile-first de trivia sobre largometrajes de producción/distribución 
 npm install
 ```
 
+## Variables de entorno (multiplayer)
+Configura `DATABASE_URL` para habilitar los endpoints de salas privadas con Prisma.
+
+Ejemplo local:
+```bash
+DATABASE_URL="file:./dev.db"
+```
+
 ## Desarrollo
 ```bash
 npm run dev
@@ -62,10 +70,13 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
-## Novedades de UX (v0.6.0)
+## Novedades de UX (v0.7.0)
 - La pregunta en juego se muestra completa (sin truncado con puntos suspensivos).
 - Las alternativas incorporan identificador visual A/B/C/D para mejorar escaneabilidad.
 - El bloque de explicación final ahora se diferencia mejor con estilo y título explícito.
 - Nueva acción de **Reanudar partida** en modo solo cuando hay progreso pendiente en el dispositivo.
 - El avance de la partida (pregunta actual y respuestas) se persiste para continuar sin fricción tras recargar o cerrar accidentalmente.
+
+- Multiplayer ahora permite crear sala privada real desde `/multiplayer` con capacidad configurable (2–8) y código corto único de 6 caracteres.
+- Nuevo endpoint `POST /api/multiplayer/rooms` para persistir salas en estado `waiting` con validación de capacidad y reintentos por colisión de código.
 
