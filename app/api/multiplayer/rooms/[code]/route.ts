@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { findRoomByCode, joinRoom } from '@/lib/multiplayer/roomService';
 
+export const dynamic = 'force-static';
+
 interface RouteParams {
   params: Promise<{ code: string }>;
 }
