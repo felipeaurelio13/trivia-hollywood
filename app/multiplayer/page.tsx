@@ -98,7 +98,7 @@ export default function MultiplayerPage() {
     setJoinSuccess(null);
 
     try {
-      const response = await fetch(`/api/multiplayer/rooms/${joinCode}`);
+      const response = await fetch(`/api/multiplayer/rooms/code?code=${encodeURIComponent(joinCode)}`);
       const payload = (await response.json()) as { room?: JoinedRoomPreview; error?: string };
 
       if (!response.ok || !payload.room) {
@@ -119,7 +119,7 @@ export default function MultiplayerPage() {
     setJoinSuccess(null);
 
     try {
-      const response = await fetch(`/api/multiplayer/rooms/${joinCode}`, {
+      const response = await fetch(`/api/multiplayer/rooms/code?code=${encodeURIComponent(joinCode)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
