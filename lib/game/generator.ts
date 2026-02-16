@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto';
 import { MovieRecord, TriviaQuestion } from './types';
 
 function shuffle<T>(items: T[]): T[] {
@@ -23,7 +22,7 @@ function createDirectorQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
   const distractors = pickDistinct(pool.map((m) => m.director), 3, movie.director);
   const options = shuffle([movie.director, ...distractors]);
   return {
-    id: randomUUID(),
+    id: crypto.randomUUID(),
     type: 'DIRECTOR',
     prompt: `¿Quién dirigió "${movie.title}"?`,
     options,
@@ -42,7 +41,7 @@ function createCastQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
   );
   const options = shuffle([correct, ...distractors]);
   return {
-    id: randomUUID(),
+    id: crypto.randomUUID(),
     type: 'CAST',
     prompt: `¿Qué actor/actriz forma parte del reparto principal de "${movie.title}"?`,
     options,
@@ -61,7 +60,7 @@ function createYearQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
   );
   const options = shuffle([correct, ...distractors]);
   return {
-    id: randomUUID(),
+    id: crypto.randomUUID(),
     type: 'YEAR',
     prompt: `¿En qué año se estrenó "${movie.title}"?`,
     options,
@@ -76,7 +75,7 @@ function createOscarQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQue
   const distractors = pickDistinct(pool.map((m) => oscarLabel(m)), 3, correct);
   const options = shuffle([correct, ...distractors]);
   return {
-    id: randomUUID(),
+    id: crypto.randomUUID(),
     type: 'OSCAR',
     prompt: `¿Cuál dato Oscar corresponde a "${movie.title}"?`,
     options,
@@ -93,7 +92,7 @@ function createIntruderQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
   const intruder = NON_NOMINATED_US_FILMS[Math.floor(Math.random() * NON_NOMINATED_US_FILMS.length)];
   const options = shuffle([intruder, ...nominated]);
   return {
-    id: randomUUID(),
+    id: crypto.randomUUID(),
     type: 'INTRUDER',
     prompt: '¿Cuál opción es la intrusa según el set confiable de nominadas?',
     options,

@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { saveSoloSession } from '@/lib/game/session';
+import { createSoloSession } from '@/lib/game/sessionFactory';
 
 export default function SoloStartPage() {
   const [loading, setLoading] = useState(false);
@@ -10,9 +11,8 @@ export default function SoloStartPage() {
 
   const startGame = async () => {
     setLoading(true);
-    const response = await fetch('/api/solo/start', { method: 'GET' });
-    const data = await response.json();
-    saveSoloSession(data);
+    const session = createSoloSession();
+    saveSoloSession(session);
     router.push('/solo/play');
   };
 
