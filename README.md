@@ -35,6 +35,13 @@ npm run test:e2e
 - Sin vidas.
 - Puntaje +100 por correcta.
 
+
+## Avance Milestone 2 (multiplayer asincrónico)
+- Modelado inicial en Prisma para salas privadas: `Room`, `RoomPlayer`, `RoomRun`, `RoomQuestionSet`.
+- Estados de sala disponibles: `waiting`, `started`, `finished`.
+- Helpers de dominio para código de sala y validación de capacidad (2-8).
+- UI inicial mobile-first en `/multiplayer` para crear sala y unirse por código (paso siguiente: conectar handlers/API).
+
 ## Despliegue en GitHub Pages
 Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 

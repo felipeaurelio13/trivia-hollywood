@@ -13,7 +13,7 @@
 - [x] E2E base para navegación home -> solo.
 
 ## Milestone 2 — Multiplayer asincrónico (2–8)
-- [ ] Modelo `Room`, `RoomPlayer`, `RoomRun`, `RoomQuestionSet`.
+- [x] Modelo `Room`, `RoomPlayer`, `RoomRun`, `RoomQuestionSet`.
 - [ ] Crear sala privada con código corto.
 - [ ] Join room con validación de capacidad (2–8).
 - [ ] Lobby con estado `waiting` y lista de jugadores.
