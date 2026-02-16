@@ -4,6 +4,8 @@ export interface SoloSession {
   sessionId: string;
   startedAt: number;
   questions: TriviaQuestion[];
+  currentQuestionIndex: number;
+  answers: number[];
 }
 
 export const SOLO_SESSION_KEY = 'trivia_hollywood_solo_session';
@@ -18,7 +20,18 @@ export function loadSoloSession(): SoloSession | null {
   const raw = localStorage.getItem(SOLO_SESSION_KEY);
   if (!raw) return null;
   try {
-    return JSON.parse(raw) as SoloSession;
+    const parsed = JSON.parse(raw) as Partial<SoloSession>;
+    if (!parsed.sessionId || !parsed.startedAt || !Array.isArray(parsed.questions)) {
+      return null;
+    }
+
+    return {
+      sessionId: parsed.sessionId,
+      startedAt: parsed.startedAt,
+      questions: parsed.questions,
+      currentQuestionIndex: Math.max(0, parsed.currentQuestionIndex ?? 0),
+      answers: Array.isArray(parsed.answers) ? parsed.answers : []
+    };
   } catch {
     return null;
   }
@@ -27,4 +40,10 @@ export function loadSoloSession(): SoloSession | null {
 export function clearSoloSession() {
   if (typeof window === 'undefined') return;
   localStorage.removeItem(SOLO_SESSION_KEY);
+}
+
+export function hasInProgressSoloSession() {
+  const session = loadSoloSession();
+  if (!session) return false;
+  return session.answers.length < session.questions.length;
 }
