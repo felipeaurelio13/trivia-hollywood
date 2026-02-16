@@ -6,7 +6,6 @@ App web mobile-first de trivia sobre largometrajes de producción/distribución 
 - Next.js (App Router) + TypeScript
 - TailwindCSS
 - Zod
-- Prisma + SQLite (dev)
 - Vitest + Playwright
 
 ## Requisitos
@@ -15,10 +14,6 @@ App web mobile-first de trivia sobre largometrajes de producción/distribución 
 ## Setup
 ```bash
 npm install
-cp .env.example .env
-npm run prisma:generate
-npm run prisma:migrate -- --name init
-npm run prisma:seed
 ```
 
 ## Desarrollo
@@ -40,6 +35,15 @@ npm run test:e2e
 - Sin vidas.
 - Puntaje +100 por correcta.
 
-## Despliegue
-El MVP actual usa Prisma + API routes, por lo que necesita runtime con backend.
-Si tu frontend va a GitHub Pages, debes desplegar API/DB en un servicio aparte.
+## Despliegue en GitHub Pages
+Este repositorio quedó preparado para despliegue estático en GitHub Pages.
+
+1. En GitHub, entra a **Settings → Pages**.
+2. En **Build and deployment**, selecciona **Source: GitHub Actions**.
+3. Haz push a `main`.
+4. El workflow `Deploy to GitHub Pages` construye y publica automáticamente el contenido estático en `out/`.
+
+### Notas técnicas
+- Se usa `output: "export"` para generar sitio estático.
+- Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
+- La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
