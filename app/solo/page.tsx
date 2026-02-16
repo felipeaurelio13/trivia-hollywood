@@ -17,16 +17,16 @@ export default function SoloStartPage() {
   };
 
   return (
-    <section className="flex min-h-[calc(100dvh-7rem)] flex-col justify-center gap-5">
-      <h1 className="text-2xl font-bold">Modo Solo</h1>
-      <p className="text-sm text-slate-300">
+    <section className="flex min-h-[calc(100dvh-8rem)] flex-col justify-center gap-6">
+      <h1 className="text-3xl font-bold">Modo Solo</h1>
+      <p className="text-lg leading-relaxed text-slate-100">
         Vas a responder 10 preguntas sobre largometrajes estadounidenses nominados al Oscar.
       </p>
       <button
         type="button"
         onClick={startGame}
         disabled={loading}
-        className="h-14 rounded-2xl bg-cyan-500 text-base font-semibold text-slate-950 disabled:opacity-50"
+        className="h-16 rounded-2xl border-2 border-cyan-300 bg-cyan-200 px-4 text-lg font-bold text-slate-950 shadow-sm transition hover:bg-cyan-100 disabled:opacity-60"
       >
         {loading ? 'Preparando partida...' : 'Comenzar partida'}
       </button>

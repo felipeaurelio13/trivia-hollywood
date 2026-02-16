@@ -42,6 +42,13 @@ npm run test:e2e
 - Helpers de dominio para código de sala y validación de capacidad (2-8).
 - UI inicial mobile-first en `/multiplayer` para crear sala y unirse por código (paso siguiente: conectar handlers/API).
 
+## Accesibilidad 70+
+- Tipografía base aumentada para mejorar legibilidad en móvil.
+- Contraste alto por defecto en botones, tarjetas y foco.
+- Objetivos táctiles grandes (mínimo 56px) para reducir errores de toque.
+- Opción de salto al contenido principal para navegación rápida con teclado/lectores.
+- Respeto de `prefers-reduced-motion` para personas sensibles a animaciones.
+
 ## Despliegue en GitHub Pages
 Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 

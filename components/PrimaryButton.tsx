@@ -11,7 +11,7 @@ export function PrimaryButton({ href, children, ariaLabel }: PrimaryButtonProps)
     <Link
       href={href}
       aria-label={ariaLabel}
-      className="flex h-14 items-center justify-center rounded-2xl bg-cyan-500 text-base font-semibold text-slate-950 transition active:scale-[0.99]"
+      className="flex h-16 items-center justify-center rounded-2xl border-2 border-cyan-300 bg-cyan-200 px-4 text-lg font-bold text-slate-950 shadow-sm transition hover:bg-cyan-100 active:scale-[0.99]"
     >
       {children}
     </Link>
