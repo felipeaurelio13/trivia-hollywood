@@ -75,6 +75,12 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
+## Novedades de UX y calidad (v0.9.8)
+- La pantalla de juego solo ahora incorpora una barra de progreso accesible con porcentaje visible para reducir incertidumbre durante la partida.
+- Se añade contador de aciertos en tiempo real para reforzar feedback motivacional sin fricción.
+- El bloque de feedback posterior a la respuesta muestra estado explícito (correcta/incorrecta) además de la explicación, mejorando claridad y comprensión.
+- Nueva prueba unitaria para blindar progreso visible y feedback post-respuesta en `/solo/play`.
+
 ## Novedades de UX y calidad (v0.9.7)
 - La explicación en juego ahora aparece solo después de responder, evitando contenido redundante antes de la interacción.
 - Se mejoró el contenido de feedback para aportar contexto útil (p. ej. ceremonia/etapa) en lugar de repetir literalmente la respuesta.

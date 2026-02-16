@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { clearSoloSession, loadSoloSession, saveSoloSession } from '@/lib/game/session';
 import { computeScore } from '@/lib/game/scoring';
@@ -21,6 +21,16 @@ export default function SoloPlayPage() {
   const answers = session?.answers ?? [];
   const question = useMemo(() => session?.questions[currentIndex], [session, currentIndex]);
   const selected = answers[currentIndex];
+  const progressPercentage = session ? Math.round(((currentIndex + 1) / session.questions.length) * 100) : 0;
+  const correctAnswers = session
+    ? session.questions.reduce((total, currentQuestion, index) => {
+        if (answers[index] === currentQuestion.correctIndex) {
+          return total + 1;
+        }
+
+        return total;
+      }, 0)
+    : 0;
 
   useEffect(() => {
     setShowFeedback(selected !== undefined);
@@ -84,7 +94,26 @@ export default function SoloPlayPage() {
   return (
     <section className="flex min-h-0 flex-1 flex-col gap-3 py-1">
       <header className="space-y-2">
+        <div className="space-y-1.5" aria-label="Progreso de partida">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-cyan-200">
+            <span>Progreso</span>
+            <span aria-live="polite">{progressPercentage}%</span>
+          </div>
+          <div
+            role="progressbar"
+            aria-label="Progreso de preguntas respondidas"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={progressPercentage}
+            className="h-2.5 overflow-hidden rounded-full border border-cyan-300/60 bg-slate-900"
+          >
+            <div className="h-full rounded-full bg-cyan-300 transition-all" style={{ width: `${progressPercentage}%` }} />
+          </div>
+        </div>
         <p className="text-base font-semibold text-cyan-200">Pregunta {currentIndex + 1} de 10</p>
+        <p className="text-sm font-medium text-slate-200" aria-live="polite">
+          Aciertos actuales: <span className="font-bold text-cyan-100">{correctAnswers}</span>
+        </p>
         <h1 className="text-xl font-semibold leading-snug">{question.prompt}</h1>
       </header>
 
@@ -121,7 +150,14 @@ export default function SoloPlayPage() {
 
       <div className="mt-auto space-y-3 pb-1">
         {showFeedback ? (
-          <div className="rounded-2xl border-2 border-cyan-500/70 bg-cyan-950/40 p-3 text-sm leading-relaxed text-cyan-50">
+          <div
+            className="rounded-2xl border-2 border-cyan-500/70 bg-cyan-950/40 p-3 text-sm leading-relaxed text-cyan-50"
+            role="status"
+            aria-live="polite"
+          >
+            <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-cyan-200">
+              {selected === question.correctIndex ? '¡Respuesta correcta!' : 'Respuesta incorrecta'}
+            </p>
             <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-cyan-200">Explicación</p>
             <p>{question.explanation}</p>
           </div>
