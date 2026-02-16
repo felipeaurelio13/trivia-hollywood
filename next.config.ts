@@ -11,6 +11,9 @@ const basePath = isGithubPagesBuild && repoName ? `/${repoName}` : '';
 const nextConfig: NextConfig = {
   output: isGithubPagesBuild ? 'export' : undefined,
   trailingSlash: true,
+  env: {
+    NEXT_PUBLIC_STATIC_EXPORT: isGithubPagesBuild ? 'true' : 'false'
+  },
   images: {
     unoptimized: true
   },
