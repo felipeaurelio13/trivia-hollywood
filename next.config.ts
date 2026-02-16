@@ -1,12 +1,15 @@
 import type { NextConfig } from 'next';
 
-const isGithubActions = process.env.GITHUB_ACTIONS === 'true';
+const isGithubPagesBuild =
+  process.env.GITHUB_PAGES === 'true' ||
+  process.env.STATIC_EXPORT === 'true' ||
+  process.env.GITHUB_WORKFLOW === 'Deploy to GitHub Pages';
 const repository = process.env.GITHUB_REPOSITORY ?? '';
 const repoName = repository.split('/')[1] ?? '';
-const basePath = isGithubActions && repoName ? `/${repoName}` : '';
+const basePath = isGithubPagesBuild && repoName ? `/${repoName}` : '';
 
 const nextConfig: NextConfig = {
-  output: 'export',
+  output: isGithubPagesBuild ? 'export' : undefined,
   trailingSlash: true,
   images: {
     unoptimized: true
