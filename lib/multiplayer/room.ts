@@ -32,6 +32,10 @@ export function normalizeRoomCode(value: string) {
   return value.trim().toUpperCase();
 }
 
+export function isRoomCodeFormatValid(code: string) {
+  return code.length === ROOM_CODE_LENGTH && /^[A-Z2-9]+$/.test(code);
+}
+
 export function isRoomCapacityValid(maxPlayers: number) {
   return Number.isInteger(maxPlayers) && maxPlayers >= ROOM_MIN_PLAYERS && maxPlayers <= ROOM_MAX_PLAYERS;
 }
