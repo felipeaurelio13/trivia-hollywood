@@ -6,6 +6,7 @@ import {
   createUniqueRoomCode,
   getRoomCapacityError,
   isRoomCapacityValid,
+  isRoomCodeFormatValid,
   normalizeRoomCode
 } from '../../lib/multiplayer/room';
 
@@ -30,6 +31,14 @@ describe('multiplayer room helpers', () => {
 
   it('normaliza el código al pegar texto con espacios', () => {
     expect(normalizeRoomCode('  abC123  ')).toBe('ABC123');
+  });
+
+
+  it('valida formato de código con 6 caracteres permitidos', () => {
+    expect(isRoomCodeFormatValid('ABC234')).toBe(true);
+    expect(isRoomCodeFormatValid('abc234')).toBe(false);
+    expect(isRoomCodeFormatValid('ABC12')).toBe(false);
+    expect(isRoomCodeFormatValid('ABC1I0')).toBe(false);
   });
 
   it('valida capacidad de sala entre 2 y 8 jugadores', () => {

@@ -5,6 +5,7 @@ import {
   ROOM_MAX_PLAYERS,
   ROOM_MIN_PLAYERS,
   ROOM_CODE_LENGTH,
+  isRoomCodeFormatValid,
   normalizeRoomCode
 } from '@/lib/multiplayer/room';
 
@@ -13,12 +14,29 @@ interface CreatedRoom {
   maxPlayers: number;
 }
 
+interface JoinedRoomPreview {
+  code: string;
+  status: 'waiting' | 'started' | 'finished';
+  maxPlayers: number;
+  currentPlayers: number;
+  seatsLeft: number;
+}
+
+const ROOM_STATUS_LABEL: Record<JoinedRoomPreview['status'], string> = {
+  waiting: 'Esperando jugadores',
+  started: 'Partida en curso',
+  finished: 'Partida finalizada'
+};
+
 export default function MultiplayerPage() {
   const [capacity, setCapacity] = useState(ROOM_MIN_PLAYERS);
   const [isCreatingRoom, setIsCreatingRoom] = useState(false);
   const [createdRoom, setCreatedRoom] = useState<CreatedRoom | null>(null);
   const [createError, setCreateError] = useState<string | null>(null);
   const [joinCode, setJoinCode] = useState('');
+  const [isJoiningRoom, setIsJoiningRoom] = useState(false);
+  const [joinedRoom, setJoinedRoom] = useState<JoinedRoomPreview | null>(null);
+  const [joinError, setJoinError] = useState<string | null>(null);
 
   const onCreateRoom = async () => {
     setIsCreatingRoom(true);
@@ -47,6 +65,29 @@ export default function MultiplayerPage() {
       setIsCreatingRoom(false);
     }
   };
+
+  const onJoinRoom = async () => {
+    setIsJoiningRoom(true);
+    setJoinError(null);
+    setJoinedRoom(null);
+
+    try {
+      const response = await fetch(`/api/multiplayer/rooms/${joinCode}`);
+      const payload = (await response.json()) as { room?: JoinedRoomPreview; error?: string };
+
+      if (!response.ok || !payload.room) {
+        throw new Error(payload.error ?? 'No se pudo encontrar la sala.');
+      }
+
+      setJoinedRoom(payload.room);
+    } catch (error) {
+      setJoinError(error instanceof Error ? error.message : 'No se pudo encontrar la sala.');
+    } finally {
+      setIsJoiningRoom(false);
+    }
+  };
+
+  const canSearchRoom = isRoomCodeFormatValid(joinCode);
 
   return (
     <section className="space-y-6 pt-4">
@@ -117,11 +158,27 @@ export default function MultiplayerPage() {
 
         <button
           type="button"
-          disabled
-          className="h-16 w-full rounded-2xl border-2 border-slate-500 bg-slate-700 text-lg font-semibold text-slate-200"
+          onClick={onJoinRoom}
+          disabled={!canSearchRoom || isJoiningRoom}
+          className="h-16 w-full rounded-2xl border-2 border-cyan-300 bg-cyan-200 text-lg font-semibold text-slate-950 transition hover:bg-cyan-100 disabled:cursor-not-allowed disabled:border-slate-500 disabled:bg-slate-700 disabled:text-slate-200"
         >
-          Unirme (siguiente paso)
+          {isJoiningRoom ? 'Buscando sala...' : 'Buscar sala'}
         </button>
+
+        {joinedRoom ? (
+          <div className="space-y-2 rounded-2xl border-2 border-cyan-300 bg-cyan-950/40 p-4">
+            <p className="text-sm uppercase tracking-[0.16em] text-cyan-200">Sala encontrada</p>
+            <p className="text-2xl font-bold tracking-[0.18em] text-cyan-100">{joinedRoom.code}</p>
+            <p className="text-base text-cyan-100">Estado: {ROOM_STATUS_LABEL[joinedRoom.status]}</p>
+            <p className="text-base text-cyan-100">
+              Jugadores: {joinedRoom.currentPlayers}/{joinedRoom.maxPlayers} · Cupos libres: {joinedRoom.seatsLeft}
+            </p>
+          </div>
+        ) : null}
+
+        {joinError ? (
+          <p className="rounded-xl border-2 border-rose-400 bg-rose-950/50 p-3 text-base text-rose-100">{joinError}</p>
+        ) : null}
       </div>
     </section>
   );
