@@ -25,6 +25,8 @@ export function createSoloSession(): SoloSession {
   return {
     sessionId: crypto.randomUUID(),
     startedAt: Date.now(),
-    questions
+    questions,
+    currentQuestionIndex: 0,
+    answers: []
   };
 }

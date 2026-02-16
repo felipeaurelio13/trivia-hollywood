@@ -7,6 +7,8 @@ describe('createSoloSession', () => {
     expect(session.sessionId).toBeTruthy();
     expect(typeof session.startedAt).toBe('number');
     expect(session.questions).toHaveLength(10);
+    expect(session.currentQuestionIndex).toBe(0);
+    expect(session.answers).toEqual([]);
 
     session.questions.forEach((question) => {
       expect(question.options).toHaveLength(4);

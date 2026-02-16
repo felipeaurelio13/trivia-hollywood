@@ -8,8 +8,6 @@ import { trackEvent } from '@/lib/analytics/events';
 
 export default function SoloPlayPage() {
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<number[]>([]);
   const [showFeedback, setShowFeedback] = useState(false);
   const [session, setSession] = useState(loadSoloSession());
 
@@ -19,13 +17,30 @@ export default function SoloPlayPage() {
     }
   }, [session, router]);
 
+  const currentIndex = session?.currentQuestionIndex ?? 0;
+  const answers = session?.answers ?? [];
   const question = useMemo(() => session?.questions[currentIndex], [session, currentIndex]);
+  const selected = answers[currentIndex];
+
+  useEffect(() => {
+    setShowFeedback(selected !== undefined);
+  }, [selected]);
 
   if (!session || !question) return null;
 
   const submitAnswer = (optionIndex: number) => {
-    const updated = [...answers, optionIndex];
-    setAnswers(updated);
+    if (showFeedback) return;
+
+    const updatedAnswers = [...answers];
+    updatedAnswers[currentIndex] = optionIndex;
+
+    const updatedSession = {
+      ...session,
+      answers: updatedAnswers
+    };
+
+    saveSoloSession(updatedSession);
+    setSession(updatedSession);
     setShowFeedback(true);
 
     trackEvent('answer_submitted', {
@@ -56,14 +71,15 @@ export default function SoloPlayPage() {
       return;
     }
 
-    setCurrentIndex((prev) => prev + 1);
-    setShowFeedback(false);
-    const updatedSession = { ...session };
+    const updatedSession = {
+      ...session,
+      currentQuestionIndex: currentIndex + 1
+    };
+
     saveSoloSession(updatedSession);
     setSession(updatedSession);
+    setShowFeedback(false);
   };
-
-  const selected = answers[currentIndex];
 
   return (
     <section className="flex min-h-[calc(100dvh-8rem)] flex-col gap-4 overflow-hidden py-2">
@@ -76,7 +92,7 @@ export default function SoloPlayPage() {
         {question.options.map((option, index) => {
           const isSelected = selected === index;
           const isCorrect = question.correctIndex === index;
-          const disabled = showFeedback;
+          const disabled = showFeedback || selected !== undefined;
           return (
             <button
               key={`${question.id}-${option}`}

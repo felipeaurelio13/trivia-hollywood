@@ -62,8 +62,10 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
-## Novedades de UX (v0.5.0)
+## Novedades de UX (v0.6.0)
 - La pregunta en juego se muestra completa (sin truncado con puntos suspensivos).
 - Las alternativas incorporan identificador visual A/B/C/D para mejorar escaneabilidad.
 - El bloque de explicación final ahora se diferencia mejor con estilo y título explícito.
+- Nueva acción de **Reanudar partida** en modo solo cuando hay progreso pendiente en el dispositivo.
+- El avance de la partida (pregunta actual y respuestas) se persiste para continuar sin fricción tras recargar o cerrar accidentalmente.
 
