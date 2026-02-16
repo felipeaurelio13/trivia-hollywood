@@ -2,11 +2,16 @@ import {
   ROOM_CODE_LENGTH,
   ROOM_MAX_PLAYERS,
   ROOM_MIN_PLAYERS,
+  ROOM_PLAYER_NAME_MAX_LENGTH,
+  ROOM_PLAYER_NAME_MIN_LENGTH,
   createRoomCode,
   createUniqueRoomCode,
+  getPlayerDisplayNameError,
   getRoomCapacityError,
+  isPlayerDisplayNameValid,
   isRoomCapacityValid,
   isRoomCodeFormatValid,
+  normalizePlayerDisplayName,
   normalizeRoomCode
 } from '../../lib/multiplayer/room';
 
@@ -33,7 +38,6 @@ describe('multiplayer room helpers', () => {
     expect(normalizeRoomCode('  abC123  ')).toBe('ABC123');
   });
 
-
   it('valida formato de código con 6 caracteres permitidos', () => {
     expect(isRoomCodeFormatValid('ABC234')).toBe(true);
     expect(isRoomCodeFormatValid('abc234')).toBe(false);
@@ -53,5 +57,23 @@ describe('multiplayer room helpers', () => {
     expect(getRoomCapacityError(Number.NaN)).toMatch(/número entero/);
     expect(getRoomCapacityError(1)).toMatch(/entre/);
     expect(getRoomCapacityError(4)).toBeNull();
+  });
+
+  it('normaliza el nombre para evitar espacios duplicados', () => {
+    expect(normalizePlayerDisplayName('   Ana   María   ')).toBe('Ana María');
+  });
+
+  it('valida largo permitido para nombre de jugador', () => {
+    expect(isPlayerDisplayNameValid('A')).toBe(false);
+    expect(isPlayerDisplayNameValid('Al')).toBe(true);
+    expect(isPlayerDisplayNameValid('x'.repeat(ROOM_PLAYER_NAME_MAX_LENGTH + 1))).toBe(false);
+  });
+
+  it('expone errores claros para nombre de jugador', () => {
+    expect(getPlayerDisplayNameError(' ')).toMatch(`${ROOM_PLAYER_NAME_MIN_LENGTH}`);
+    expect(getPlayerDisplayNameError('x'.repeat(ROOM_PLAYER_NAME_MAX_LENGTH + 1))).toMatch(
+      `${ROOM_PLAYER_NAME_MAX_LENGTH}`
+    );
+    expect(getPlayerDisplayNameError('Daniel')).toBeNull();
   });
 });
