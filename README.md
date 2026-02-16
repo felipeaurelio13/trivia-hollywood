@@ -75,6 +75,11 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
+## Novedades de UX y calidad (v0.9.6)
+- El generador de preguntas ahora deduplica y valida opciones antes de renderizar cada pregunta para impedir alternativas repetidas (A/B/C/D siempre únicas).
+- Si una combinación de datos no permite generar 4 alternativas únicas para un tipo de pregunta, se corta la generación con error explícito para proteger la calidad de la partida.
+- Se agregaron pruebas unitarias para blindar la regla de opciones únicas y prevenir regresiones.
+
 ## Novedades de UX (v0.9.5)
 - Nuevo bloque de diagnóstico en Ajustes para explicar por qué a veces se ve el README en lugar de la app y cómo corregirlo en GitHub Pages (URL correcta + fuente GitHub Actions).
 - Se documenta explícitamente la URL esperada de GitHub Pages (`https://<tu-usuario>.github.io/trivia-hollywood/`) y dónde verificar la URL final publicada (`page_url` en Actions).

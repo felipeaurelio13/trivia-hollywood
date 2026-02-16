@@ -22,4 +22,20 @@ describe('generateSoloQuestions', () => {
       expect(question.correctIndex).toBeLessThan(4);
     });
   });
+
+  it('garantiza 4 opciones únicas por pregunta', () => {
+    const questions = generateSoloQuestions(movies);
+
+    questions.forEach((question) => {
+      expect(new Set(question.options).size).toBe(4);
+    });
+  });
+
+  it('falla si no hay distractores únicos suficientes', () => {
+    const duplicatedDirectors = movies.map((movie) => ({ ...movie, director: 'Same Director' }));
+
+    expect(() => generateSoloQuestions(duplicatedDirectors)).toThrow(
+      'No hay suficientes opciones únicas para DIRECTOR'
+    );
+  });
 });

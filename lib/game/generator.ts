@@ -4,9 +4,24 @@ function shuffle<T>(items: T[]): T[] {
   return [...items].sort(() => Math.random() - 0.5);
 }
 
-function pickDistinct<T>(items: T[], amount: number, avoid?: T): T[] {
-  const filtered = avoid ? items.filter((item) => item !== avoid) : items;
+function uniqueValues(items: string[]): string[] {
+  return [...new Set(items.map((item) => item.trim()).filter(Boolean))];
+}
+
+function pickDistinct(items: string[], amount: number, avoid?: string): string[] {
+  const filtered = uniqueValues(items).filter((item) => item !== avoid);
   return shuffle(filtered).slice(0, amount);
+}
+
+function buildOptions(correct: string, candidates: string[], context: string): string[] {
+  const distractors = pickDistinct(candidates, 3, correct);
+  const options = shuffle([correct, ...distractors]);
+
+  if (new Set(options).size !== 4) {
+    throw new Error(`No hay suficientes opciones únicas para ${context}.`);
+  }
+
+  return options;
 }
 
 function castFirst(movie: MovieRecord) {
@@ -19,8 +34,7 @@ function oscarLabel(movie: MovieRecord) {
 }
 
 function createDirectorQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQuestion {
-  const distractors = pickDistinct(pool.map((m) => m.director), 3, movie.director);
-  const options = shuffle([movie.director, ...distractors]);
+  const options = buildOptions(movie.director, pool.map((m) => m.director), `DIRECTOR · ${movie.title}`);
   return {
     id: crypto.randomUUID(),
     type: 'DIRECTOR',
@@ -34,12 +48,11 @@ function createDirectorQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
 
 function createCastQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQuestion {
   const correct = castFirst(movie);
-  const distractors = pickDistinct(
+  const options = buildOptions(
+    correct,
     pool.map((m) => castFirst(m)).filter(Boolean),
-    3,
-    correct
+    `CAST · ${movie.title}`
   );
-  const options = shuffle([correct, ...distractors]);
   return {
     id: crypto.randomUUID(),
     type: 'CAST',
@@ -53,12 +66,11 @@ function createCastQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
 
 function createYearQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQuestion {
   const correct = String(movie.releaseYear);
-  const distractors = pickDistinct(
+  const options = buildOptions(
+    correct,
     pool.map((m) => String(m.releaseYear)),
-    3,
-    correct
+    `YEAR · ${movie.title}`
   );
-  const options = shuffle([correct, ...distractors]);
   return {
     id: crypto.randomUUID(),
     type: 'YEAR',
@@ -72,8 +84,7 @@ function createYearQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
 
 function createOscarQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQuestion {
   const correct = oscarLabel(movie);
-  const distractors = pickDistinct(pool.map((m) => oscarLabel(m)), 3, correct);
-  const options = shuffle([correct, ...distractors]);
+  const options = buildOptions(correct, pool.map((m) => oscarLabel(m)), `OSCAR · ${movie.title}`);
   return {
     id: crypto.randomUUID(),
     type: 'OSCAR',
@@ -88,9 +99,14 @@ function createOscarQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQue
 const NON_NOMINATED_US_FILMS = ['The Hangover', 'Hocus Pocus', 'The Warriors', 'Fast & Furious'];
 
 function createIntruderQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQuestion {
-  const nominated = pickDistinct(pool.filter((m) => m !== movie), 3).map((m) => m.title);
+  const nominated = pickDistinct(
+    pool
+      .filter((m) => m !== movie)
+      .map((m) => m.title),
+    3
+  );
   const intruder = NON_NOMINATED_US_FILMS[Math.floor(Math.random() * NON_NOMINATED_US_FILMS.length)];
-  const options = shuffle([intruder, ...nominated]);
+  const options = buildOptions(intruder, nominated, `INTRUDER · ${movie.title}`);
   return {
     id: crypto.randomUUID(),
     type: 'INTRUDER',
