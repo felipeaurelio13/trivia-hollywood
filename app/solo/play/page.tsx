@@ -69,7 +69,7 @@ export default function SoloPlayPage() {
     <section className="flex min-h-[calc(100dvh-8rem)] flex-col gap-4 overflow-hidden py-2">
       <header className="space-y-2">
         <p className="text-base font-semibold text-cyan-200">Pregunta {currentIndex + 1} de 10</p>
-        <h1 className="line-clamp-2 text-2xl font-semibold leading-snug">{question.prompt}</h1>
+        <h1 className="text-xl font-semibold leading-snug sm:text-2xl">{question.prompt}</h1>
       </header>
 
       <div className="grid flex-1 grid-rows-4 gap-3">
@@ -94,14 +94,18 @@ export default function SoloPlayPage() {
                   : 'border-slate-500 bg-slate-900 text-slate-100 hover:border-cyan-200'
               }`}
             >
-              <span className="line-clamp-2">{option}</span>
+              <span className="mb-2 inline-flex h-8 w-8 items-center justify-center rounded-full border border-cyan-200/70 bg-cyan-900/40 text-sm font-bold text-cyan-100">
+                {String.fromCharCode(65 + index)}
+              </span>
+              <span className="block">{option}</span>
             </button>
           );
         })}
       </div>
 
-      <div className="min-h-20 rounded-2xl border-2 border-slate-700 bg-slate-900 p-4 text-base leading-relaxed text-slate-100">
-        {showFeedback ? question.explanation : 'Selecciona una opción para ver la explicación inmediata.'}
+      <div className="min-h-20 rounded-2xl border-2 border-cyan-500/70 bg-cyan-950/40 p-4 text-base leading-relaxed text-cyan-50">
+        <p className="mb-1 text-sm font-semibold uppercase tracking-wide text-cyan-200">Explicación</p>
+        <p>{showFeedback ? question.explanation : 'Selecciona una opción para ver la explicación inmediata.'}</p>
       </div>
 
       <button
