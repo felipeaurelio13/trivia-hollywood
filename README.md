@@ -17,11 +17,15 @@ npm install
 ```
 
 ## Variables de entorno (multiplayer)
-Configura `DATABASE_URL` para habilitar los endpoints de salas privadas con Prisma.
+Configura estas variables según tu entorno:
+
+- `DATABASE_URL`: necesaria en el backend donde viven las API routes de multiplayer (Prisma).
+- `NEXT_PUBLIC_MULTIPLAYER_API_BASE_URL`: necesaria en frontend estático (GitHub Pages) para apuntar al backend multiplayer externo.
 
 Ejemplo local:
 ```bash
 DATABASE_URL="file:./dev.db"
+NEXT_PUBLIC_MULTIPLAYER_API_BASE_URL="http://localhost:3000"
 ```
 
 ## Desarrollo
@@ -75,6 +79,12 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
+## Novedades de UX y despliegue (v0.10.1)
+- Multiplayer en GitHub Pages ahora funciona apuntando a un backend externo configurable con `NEXT_PUBLIC_MULTIPLAYER_API_BASE_URL`.
+- El cliente multiplayer ya no depende únicamente de rutas relativas: crea/busca/une sala usando la URL base configurada.
+- La UI mantiene feedback claro: bloquea acciones cuando falta backend y muestra estado activo cuando sí está configurado.
+- Se añadieron pruebas unitarias para blindar la resolución de URLs de multiplayer y el comportamiento de la pantalla en export estático.
+
 ## Novedades de UX y calidad (v0.10.0)
 - El dataset curado se amplió a 54 largometrajes elegibles (USA + >=1 nominación Oscar) para reducir repeticiones y mejorar cobertura histórica en modo solo.
 - El generador de preguntas ahora usa barajado Fisher-Yates con aleatoriedad criptográfica cuando está disponible, mejorando la variación entre partidas consecutivas.
@@ -102,7 +112,7 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 ## Novedades de UX (v0.9.5)
 - Nuevo bloque de diagnóstico en Ajustes para explicar por qué a veces se ve el README en lugar de la app y cómo corregirlo en GitHub Pages (URL correcta + fuente GitHub Actions).
 - Se documenta explícitamente la URL esperada de GitHub Pages (`https://<tu-usuario>.github.io/trivia-hollywood/`) y dónde verificar la URL final publicada (`page_url` en Actions).
-- En despliegue estático de GitHub Pages, la pantalla multiplayer ahora informa claramente que requiere runtime server y desactiva acciones de crear/buscar/unirse para evitar errores de uso.
+- En despliegue estático de GitHub Pages, multiplayer se conecta a backend externo si configuras `NEXT_PUBLIC_MULTIPLAYER_API_BASE_URL`; si falta, la UI informa el requisito y bloquea acciones para evitar errores.
 - La pregunta en juego se muestra completa (sin truncado con puntos suspensivos).
 - Las alternativas incorporan identificador visual A/B/C/D para mejorar escaneabilidad.
 - El bloque de explicación final ahora se diferencia mejor con estilo y título explícito.

@@ -11,6 +11,7 @@ import {
   normalizePlayerDisplayName,
   normalizeRoomCode
 } from '@/lib/multiplayer/room';
+import { buildMultiplayerApiUrl, hasExternalMultiplayerApi } from '@/lib/multiplayer/api';
 
 interface CreatedRoom {
   code: string;
@@ -45,6 +46,7 @@ const ROOM_STATUS_LABEL: Record<JoinedRoomPreview['status'], string> = {
 };
 
 const isStaticExportBuild = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+const multiplayerAvailable = !isStaticExportBuild || hasExternalMultiplayerApi;
 
 export default function MultiplayerPage() {
   const [capacity, setCapacity] = useState(ROOM_MIN_PLAYERS);
@@ -59,8 +61,12 @@ export default function MultiplayerPage() {
   const [joinSuccess, setJoinSuccess] = useState<JoinedRoomResult | null>(null);
   const [joinError, setJoinError] = useState<string | null>(null);
 
-  const deploymentHint = isStaticExportBuild
-    ? 'Multiplayer necesita runtime server para API routes. En GitHub Pages (export estático) este flujo no está disponible.'
+  const deploymentHint = !multiplayerAvailable
+    ? 'Multiplayer requiere backend para API routes. En GitHub Pages debes configurar NEXT_PUBLIC_MULTIPLAYER_API_BASE_URL para conectar un backend externo.'
+    : null;
+
+  const deploymentSuccessHint = isStaticExportBuild && hasExternalMultiplayerApi
+    ? 'Multiplayer activo: esta versión estática usa un backend externo configurado.'
     : null;
 
   const onCreateRoom = async () => {
@@ -68,7 +74,7 @@ export default function MultiplayerPage() {
     setCreateError(null);
 
     try {
-      const response = await fetch('/api/multiplayer/rooms', {
+      const response = await fetch(buildMultiplayerApiUrl('/api/multiplayer/rooms'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -98,7 +104,7 @@ export default function MultiplayerPage() {
     setJoinSuccess(null);
 
     try {
-      const response = await fetch(`/api/multiplayer/rooms/code?code=${encodeURIComponent(joinCode)}`);
+      const response = await fetch(buildMultiplayerApiUrl(`/api/multiplayer/rooms/code?code=${encodeURIComponent(joinCode)}`));
       const payload = (await response.json()) as { room?: JoinedRoomPreview; error?: string };
 
       if (!response.ok || !payload.room) {
@@ -119,7 +125,7 @@ export default function MultiplayerPage() {
     setJoinSuccess(null);
 
     try {
-      const response = await fetch(`/api/multiplayer/rooms/code?code=${encodeURIComponent(joinCode)}`, {
+      const response = await fetch(buildMultiplayerApiUrl(`/api/multiplayer/rooms/code?code=${encodeURIComponent(joinCode)}`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -163,6 +169,13 @@ export default function MultiplayerPage() {
         </p>
       ) : null}
 
+
+      {deploymentSuccessHint ? (
+        <p className="rounded-2xl border-2 border-emerald-300 bg-emerald-950/60 p-4 text-base text-emerald-100">
+          {deploymentSuccessHint}
+        </p>
+      ) : null}
+
       <div className="space-y-4 rounded-2xl border-2 border-slate-700 bg-slate-900/70 p-5">
         <h2 className="text-2xl font-semibold">Crear sala</h2>
         <p className="text-lg text-slate-100">Define capacidad y comparte el código con tus amigos.</p>
@@ -183,7 +196,7 @@ export default function MultiplayerPage() {
         <button
           type="button"
           onClick={onCreateRoom}
-          disabled={isCreatingRoom || Boolean(deploymentHint)}
+          disabled={isCreatingRoom || !multiplayerAvailable}
           className="h-16 w-full rounded-2xl border-2 border-cyan-300 bg-cyan-200 text-lg font-semibold text-slate-950 transition hover:bg-cyan-100 disabled:opacity-60"
         >
           {isCreatingRoom ? 'Creando sala...' : 'Crear sala privada'}
@@ -224,7 +237,7 @@ export default function MultiplayerPage() {
         <button
           type="button"
           onClick={onSearchRoom}
-          disabled={!canSearchRoom || isJoiningRoom || Boolean(deploymentHint)}
+          disabled={!canSearchRoom || isJoiningRoom || !multiplayerAvailable}
           className="h-16 w-full rounded-2xl border-2 border-cyan-300 bg-cyan-200 text-lg font-semibold text-slate-950 transition hover:bg-cyan-100 disabled:cursor-not-allowed disabled:border-slate-500 disabled:bg-slate-700 disabled:text-slate-200"
         >
           {isJoiningRoom ? 'Buscando sala...' : 'Buscar sala'}
@@ -260,7 +273,7 @@ export default function MultiplayerPage() {
             <button
               type="button"
               onClick={onJoinRoom}
-              disabled={!canJoinRoom || isJoiningRoom || Boolean(deploymentHint)}
+              disabled={!canJoinRoom || isJoiningRoom || !multiplayerAvailable}
               className="h-16 w-full rounded-2xl border-2 border-emerald-300 bg-emerald-200 text-lg font-semibold text-emerald-950 transition hover:bg-emerald-100 disabled:cursor-not-allowed disabled:border-slate-500 disabled:bg-slate-700 disabled:text-slate-200"
             >
               {isJoiningRoom ? 'Uniéndote...' : 'Entrar al lobby'}
