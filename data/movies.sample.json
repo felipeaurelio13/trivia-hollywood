@@ -1,27 +1,1028 @@
 [
-  {"title":"The Godfather","releaseYear":1972,"productionCountry":"USA","distributor":"Paramount Pictures","director":"Francis Ford Coppola","topCast":["Marlon Brando","Al Pacino","James Caan"],"nominations":[{"ceremonyYear":1973,"category":"Best Picture","won":true},{"ceremonyYear":1973,"category":"Best Actor","won":true}]},
-  {"title":"The Godfather Part II","releaseYear":1974,"productionCountry":"USA","distributor":"Paramount Pictures","director":"Francis Ford Coppola","topCast":["Al Pacino","Robert De Niro","Diane Keaton"],"nominations":[{"ceremonyYear":1975,"category":"Best Picture","won":true}]},
-  {"title":"Jaws","releaseYear":1975,"productionCountry":"USA","distributor":"Universal Pictures","director":"Steven Spielberg","topCast":["Roy Scheider","Richard Dreyfuss","Robert Shaw"],"nominations":[{"ceremonyYear":1976,"category":"Best Picture","won":false}]},
-  {"title":"Rocky","releaseYear":1976,"productionCountry":"USA","distributor":"United Artists","director":"John G. Avildsen","topCast":["Sylvester Stallone","Talia Shire","Burt Young"],"nominations":[{"ceremonyYear":1977,"category":"Best Picture","won":true}]},
-  {"title":"E.T. the Extra-Terrestrial","releaseYear":1982,"productionCountry":"USA","distributor":"Universal Pictures","director":"Steven Spielberg","topCast":["Henry Thomas","Drew Barrymore","Dee Wallace"],"nominations":[{"ceremonyYear":1983,"category":"Best Picture","won":false}]},
-  {"title":"Raging Bull","releaseYear":1980,"productionCountry":"USA","distributor":"United Artists","director":"Martin Scorsese","topCast":["Robert De Niro","Cathy Moriarty","Joe Pesci"],"nominations":[{"ceremonyYear":1981,"category":"Best Picture","won":false}]},
-  {"title":"Forrest Gump","releaseYear":1994,"productionCountry":"USA","distributor":"Paramount Pictures","director":"Robert Zemeckis","topCast":["Tom Hanks","Robin Wright","Gary Sinise"],"nominations":[{"ceremonyYear":1995,"category":"Best Picture","won":true}]},
-  {"title":"Pulp Fiction","releaseYear":1994,"productionCountry":"USA","distributor":"Miramax","director":"Quentin Tarantino","topCast":["John Travolta","Uma Thurman","Samuel L. Jackson"],"nominations":[{"ceremonyYear":1995,"category":"Best Picture","won":false}]},
-  {"title":"Titanic","releaseYear":1997,"productionCountry":"USA","distributor":"20th Century Fox","director":"James Cameron","topCast":["Leonardo DiCaprio","Kate Winslet","Billy Zane"],"nominations":[{"ceremonyYear":1998,"category":"Best Picture","won":true}]},
-  {"title":"Saving Private Ryan","releaseYear":1998,"productionCountry":"USA","distributor":"DreamWorks Pictures","director":"Steven Spielberg","topCast":["Tom Hanks","Matt Damon","Tom Sizemore"],"nominations":[{"ceremonyYear":1999,"category":"Best Picture","won":false}]},
-  {"title":"Gladiator","releaseYear":2000,"productionCountry":"USA","distributor":"DreamWorks Pictures","director":"Ridley Scott","topCast":["Russell Crowe","Joaquin Phoenix","Connie Nielsen"],"nominations":[{"ceremonyYear":2001,"category":"Best Picture","won":true}]},
-  {"title":"A Beautiful Mind","releaseYear":2001,"productionCountry":"USA","distributor":"Universal Pictures","director":"Ron Howard","topCast":["Russell Crowe","Jennifer Connelly","Ed Harris"],"nominations":[{"ceremonyYear":2002,"category":"Best Picture","won":true}]},
-  {"title":"The Lord of the Rings: The Return of the King","releaseYear":2003,"productionCountry":"USA","distributor":"New Line Cinema","director":"Peter Jackson","topCast":["Elijah Wood","Viggo Mortensen","Ian McKellen"],"nominations":[{"ceremonyYear":2004,"category":"Best Picture","won":true}]},
-  {"title":"The Departed","releaseYear":2006,"productionCountry":"USA","distributor":"Warner Bros.","director":"Martin Scorsese","topCast":["Leonardo DiCaprio","Matt Damon","Jack Nicholson"],"nominations":[{"ceremonyYear":2007,"category":"Best Picture","won":true}]},
-  {"title":"No Country for Old Men","releaseYear":2007,"productionCountry":"USA","distributor":"Miramax","director":"Joel Coen","topCast":["Tommy Lee Jones","Javier Bardem","Josh Brolin"],"nominations":[{"ceremonyYear":2008,"category":"Best Picture","won":true}]},
-  {"title":"The Social Network","releaseYear":2010,"productionCountry":"USA","distributor":"Columbia Pictures","director":"David Fincher","topCast":["Jesse Eisenberg","Andrew Garfield","Justin Timberlake"],"nominations":[{"ceremonyYear":2011,"category":"Best Picture","won":false}]},
-  {"title":"Argo","releaseYear":2012,"productionCountry":"USA","distributor":"Warner Bros.","director":"Ben Affleck","topCast":["Ben Affleck","Bryan Cranston","Alan Arkin"],"nominations":[{"ceremonyYear":2013,"category":"Best Picture","won":true}]},
-  {"title":"Whiplash","releaseYear":2014,"productionCountry":"USA","distributor":"Sony Pictures Classics","director":"Damien Chazelle","topCast":["Miles Teller","J.K. Simmons","Paul Reiser"],"nominations":[{"ceremonyYear":2015,"category":"Best Picture","won":false}]},
-  {"title":"La La Land","releaseYear":2016,"productionCountry":"USA","distributor":"Lionsgate","director":"Damien Chazelle","topCast":["Ryan Gosling","Emma Stone","John Legend"],"nominations":[{"ceremonyYear":2017,"category":"Best Picture","won":false}]},
-  {"title":"Get Out","releaseYear":2017,"productionCountry":"USA","distributor":"Universal Pictures","director":"Jordan Peele","topCast":["Daniel Kaluuya","Allison Williams","Lil Rel Howery"],"nominations":[{"ceremonyYear":2018,"category":"Best Picture","won":false}]},
-  {"title":"Black Panther","releaseYear":2018,"productionCountry":"USA","distributor":"Walt Disney Studios","director":"Ryan Coogler","topCast":["Chadwick Boseman","Michael B. Jordan","Lupita Nyong'o"],"nominations":[{"ceremonyYear":2019,"category":"Best Picture","won":false}]},
-  {"title":"Joker","releaseYear":2019,"productionCountry":"USA","distributor":"Warner Bros.","director":"Todd Phillips","topCast":["Joaquin Phoenix","Robert De Niro","Zazie Beetz"],"nominations":[{"ceremonyYear":2020,"category":"Best Picture","won":false}]},
-  {"title":"Dune","releaseYear":2021,"productionCountry":"USA","distributor":"Warner Bros.","director":"Denis Villeneuve","topCast":["Timothee Chalamet","Rebecca Ferguson","Oscar Isaac"],"nominations":[{"ceremonyYear":2022,"category":"Best Picture","won":false}]},
-  {"title":"Oppenheimer","releaseYear":2023,"productionCountry":"USA","distributor":"Universal Pictures","director":"Christopher Nolan","topCast":["Cillian Murphy","Emily Blunt","Matt Damon"],"nominations":[{"ceremonyYear":2024,"category":"Best Picture","won":true}]},
-  {"title":"Barbie","releaseYear":2023,"productionCountry":"USA","distributor":"Warner Bros.","director":"Greta Gerwig","topCast":["Margot Robbie","Ryan Gosling","America Ferrera"],"nominations":[{"ceremonyYear":2024,"category":"Best Picture","won":false}]}
+  {
+    "title": "The Godfather",
+    "releaseYear": 1972,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "Francis Ford Coppola",
+    "topCast": [
+      "Marlon Brando",
+      "Al Pacino",
+      "James Caan"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1973,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "The Godfather Part II",
+    "releaseYear": 1974,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "Francis Ford Coppola",
+    "topCast": [
+      "Al Pacino",
+      "Robert De Niro",
+      "Diane Keaton"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1975,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Jaws",
+    "releaseYear": 1975,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Steven Spielberg",
+    "topCast": [
+      "Roy Scheider",
+      "Richard Dreyfuss",
+      "Robert Shaw"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1976,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Rocky",
+    "releaseYear": 1976,
+    "productionCountry": "USA",
+    "distributor": "United Artists",
+    "director": "John G. Avildsen",
+    "topCast": [
+      "Sylvester Stallone",
+      "Talia Shire",
+      "Burt Young"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1977,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Annie Hall",
+    "releaseYear": 1977,
+    "productionCountry": "USA",
+    "distributor": "United Artists",
+    "director": "Woody Allen",
+    "topCast": [
+      "Woody Allen",
+      "Diane Keaton",
+      "Tony Roberts"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1978,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "The Deer Hunter",
+    "releaseYear": 1978,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Michael Cimino",
+    "topCast": [
+      "Robert De Niro",
+      "Christopher Walken",
+      "Meryl Streep"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1979,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Kramer vs. Kramer",
+    "releaseYear": 1979,
+    "productionCountry": "USA",
+    "distributor": "Columbia Pictures",
+    "director": "Robert Benton",
+    "topCast": [
+      "Dustin Hoffman",
+      "Meryl Streep",
+      "Justin Henry"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1980,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Raging Bull",
+    "releaseYear": 1980,
+    "productionCountry": "USA",
+    "distributor": "United Artists",
+    "director": "Martin Scorsese",
+    "topCast": [
+      "Robert De Niro",
+      "Cathy Moriarty",
+      "Joe Pesci"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1981,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Raiders of the Lost Ark",
+    "releaseYear": 1981,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "Steven Spielberg",
+    "topCast": [
+      "Harrison Ford",
+      "Karen Allen",
+      "Paul Freeman"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1982,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "E.T. the Extra-Terrestrial",
+    "releaseYear": 1982,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Steven Spielberg",
+    "topCast": [
+      "Henry Thomas",
+      "Drew Barrymore",
+      "Dee Wallace"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1983,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Terms of Endearment",
+    "releaseYear": 1983,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "James L. Brooks",
+    "topCast": [
+      "Shirley MacLaine",
+      "Debra Winger",
+      "Jack Nicholson"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1984,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Amadeus",
+    "releaseYear": 1984,
+    "productionCountry": "USA",
+    "distributor": "Orion Pictures",
+    "director": "Milos Forman",
+    "topCast": [
+      "F. Murray Abraham",
+      "Tom Hulce",
+      "Elizabeth Berridge"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1985,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "The Color Purple",
+    "releaseYear": 1985,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Steven Spielberg",
+    "topCast": [
+      "Whoopi Goldberg",
+      "Danny Glover",
+      "Margaret Avery"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1986,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Platoon",
+    "releaseYear": 1986,
+    "productionCountry": "USA",
+    "distributor": "Orion Pictures",
+    "director": "Oliver Stone",
+    "topCast": [
+      "Charlie Sheen",
+      "Tom Berenger",
+      "Willem Dafoe"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1987,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Fatal Attraction",
+    "releaseYear": 1987,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "Adrian Lyne",
+    "topCast": [
+      "Michael Douglas",
+      "Glenn Close",
+      "Anne Archer"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1988,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Rain Man",
+    "releaseYear": 1988,
+    "productionCountry": "USA",
+    "distributor": "United Artists",
+    "director": "Barry Levinson",
+    "topCast": [
+      "Dustin Hoffman",
+      "Tom Cruise",
+      "Valeria Golino"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1989,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Born on the Fourth of July",
+    "releaseYear": 1989,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Oliver Stone",
+    "topCast": [
+      "Tom Cruise",
+      "Kyra Sedgwick",
+      "Raymond J. Barry"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1990,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Goodfellas",
+    "releaseYear": 1990,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Martin Scorsese",
+    "topCast": [
+      "Robert De Niro",
+      "Ray Liotta",
+      "Joe Pesci"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1991,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "The Silence of the Lambs",
+    "releaseYear": 1991,
+    "productionCountry": "USA",
+    "distributor": "Orion Pictures",
+    "director": "Jonathan Demme",
+    "topCast": [
+      "Jodie Foster",
+      "Anthony Hopkins",
+      "Scott Glenn"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1992,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "A Few Good Men",
+    "releaseYear": 1992,
+    "productionCountry": "USA",
+    "distributor": "Columbia Pictures",
+    "director": "Rob Reiner",
+    "topCast": [
+      "Tom Cruise",
+      "Jack Nicholson",
+      "Demi Moore"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1993,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Schindler's List",
+    "releaseYear": 1993,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Steven Spielberg",
+    "topCast": [
+      "Liam Neeson",
+      "Ben Kingsley",
+      "Ralph Fiennes"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1994,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Forrest Gump",
+    "releaseYear": 1994,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "Robert Zemeckis",
+    "topCast": [
+      "Tom Hanks",
+      "Robin Wright",
+      "Gary Sinise"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1995,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Apollo 13",
+    "releaseYear": 1995,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Ron Howard",
+    "topCast": [
+      "Tom Hanks",
+      "Bill Paxton",
+      "Kevin Bacon"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1996,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Fargo",
+    "releaseYear": 1996,
+    "productionCountry": "USA",
+    "distributor": "Gramercy Pictures",
+    "director": "Joel Coen",
+    "topCast": [
+      "Frances McDormand",
+      "William H. Macy",
+      "Steve Buscemi"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1997,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Titanic",
+    "releaseYear": 1997,
+    "productionCountry": "USA",
+    "distributor": "20th Century Fox",
+    "director": "James Cameron",
+    "topCast": [
+      "Leonardo DiCaprio",
+      "Kate Winslet",
+      "Billy Zane"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1998,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Saving Private Ryan",
+    "releaseYear": 1998,
+    "productionCountry": "USA",
+    "distributor": "DreamWorks Pictures",
+    "director": "Steven Spielberg",
+    "topCast": [
+      "Tom Hanks",
+      "Matt Damon",
+      "Tom Sizemore"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 1999,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "The Green Mile",
+    "releaseYear": 1999,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Frank Darabont",
+    "topCast": [
+      "Tom Hanks",
+      "Michael Clarke Duncan",
+      "David Morse"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2000,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Gladiator",
+    "releaseYear": 2000,
+    "productionCountry": "USA",
+    "distributor": "DreamWorks Pictures",
+    "director": "Ridley Scott",
+    "topCast": [
+      "Russell Crowe",
+      "Joaquin Phoenix",
+      "Connie Nielsen"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2001,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "A Beautiful Mind",
+    "releaseYear": 2001,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Ron Howard",
+    "topCast": [
+      "Russell Crowe",
+      "Jennifer Connelly",
+      "Ed Harris"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2002,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Gangs of New York",
+    "releaseYear": 2002,
+    "productionCountry": "USA",
+    "distributor": "Miramax",
+    "director": "Martin Scorsese",
+    "topCast": [
+      "Leonardo DiCaprio",
+      "Daniel Day-Lewis",
+      "Cameron Diaz"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2003,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Mystic River",
+    "releaseYear": 2003,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Clint Eastwood",
+    "topCast": [
+      "Sean Penn",
+      "Tim Robbins",
+      "Kevin Bacon"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2004,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Million Dollar Baby",
+    "releaseYear": 2004,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Clint Eastwood",
+    "topCast": [
+      "Hilary Swank",
+      "Clint Eastwood",
+      "Morgan Freeman"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2005,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Brokeback Mountain",
+    "releaseYear": 2005,
+    "productionCountry": "USA",
+    "distributor": "Focus Features",
+    "director": "Ang Lee",
+    "topCast": [
+      "Heath Ledger",
+      "Jake Gyllenhaal",
+      "Michelle Williams"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2006,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "The Departed",
+    "releaseYear": 2006,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Martin Scorsese",
+    "topCast": [
+      "Leonardo DiCaprio",
+      "Matt Damon",
+      "Jack Nicholson"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2007,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "No Country for Old Men",
+    "releaseYear": 2007,
+    "productionCountry": "USA",
+    "distributor": "Miramax",
+    "director": "Joel Coen",
+    "topCast": [
+      "Tommy Lee Jones",
+      "Javier Bardem",
+      "Josh Brolin"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2008,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "The Curious Case of Benjamin Button",
+    "releaseYear": 2008,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "David Fincher",
+    "topCast": [
+      "Brad Pitt",
+      "Cate Blanchett",
+      "Taraji P. Henson"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2009,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "The Hurt Locker",
+    "releaseYear": 2009,
+    "productionCountry": "USA",
+    "distributor": "Summit Entertainment",
+    "director": "Kathryn Bigelow",
+    "topCast": [
+      "Jeremy Renner",
+      "Anthony Mackie",
+      "Brian Geraghty"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2010,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "The Social Network",
+    "releaseYear": 2010,
+    "productionCountry": "USA",
+    "distributor": "Columbia Pictures",
+    "director": "David Fincher",
+    "topCast": [
+      "Jesse Eisenberg",
+      "Andrew Garfield",
+      "Justin Timberlake"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2011,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Moneyball",
+    "releaseYear": 2011,
+    "productionCountry": "USA",
+    "distributor": "Columbia Pictures",
+    "director": "Bennett Miller",
+    "topCast": [
+      "Brad Pitt",
+      "Jonah Hill",
+      "Philip Seymour Hoffman"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2012,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Argo",
+    "releaseYear": 2012,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Ben Affleck",
+    "topCast": [
+      "Ben Affleck",
+      "Bryan Cranston",
+      "Alan Arkin"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2013,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "12 Years a Slave",
+    "releaseYear": 2013,
+    "productionCountry": "USA",
+    "distributor": "Fox Searchlight Pictures",
+    "director": "Steve McQueen",
+    "topCast": [
+      "Chiwetel Ejiofor",
+      "Lupita Nyong'o",
+      "Michael Fassbender"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2014,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Whiplash",
+    "releaseYear": 2014,
+    "productionCountry": "USA",
+    "distributor": "Sony Pictures Classics",
+    "director": "Damien Chazelle",
+    "topCast": [
+      "Miles Teller",
+      "J.K. Simmons",
+      "Paul Reiser"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2015,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "The Big Short",
+    "releaseYear": 2015,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "Adam McKay",
+    "topCast": [
+      "Christian Bale",
+      "Steve Carell",
+      "Ryan Gosling"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2016,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "La La Land",
+    "releaseYear": 2016,
+    "productionCountry": "USA",
+    "distributor": "Lionsgate",
+    "director": "Damien Chazelle",
+    "topCast": [
+      "Ryan Gosling",
+      "Emma Stone",
+      "John Legend"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2017,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Get Out",
+    "releaseYear": 2017,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Jordan Peele",
+    "topCast": [
+      "Daniel Kaluuya",
+      "Allison Williams",
+      "Lil Rel Howery"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2018,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Black Panther",
+    "releaseYear": 2018,
+    "productionCountry": "USA",
+    "distributor": "Walt Disney Studios",
+    "director": "Ryan Coogler",
+    "topCast": [
+      "Chadwick Boseman",
+      "Michael B. Jordan",
+      "Lupita Nyong'o"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2019,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Joker",
+    "releaseYear": 2019,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Todd Phillips",
+    "topCast": [
+      "Joaquin Phoenix",
+      "Robert De Niro",
+      "Zazie Beetz"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2020,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "The Trial of the Chicago 7",
+    "releaseYear": 2020,
+    "productionCountry": "USA",
+    "distributor": "Netflix",
+    "director": "Aaron Sorkin",
+    "topCast": [
+      "Eddie Redmayne",
+      "Sacha Baron Cohen",
+      "Yahya Abdul-Mateen II"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2021,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Dune",
+    "releaseYear": 2021,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Denis Villeneuve",
+    "topCast": [
+      "Timothee Chalamet",
+      "Rebecca Ferguson",
+      "Oscar Isaac"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2022,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Top Gun: Maverick",
+    "releaseYear": 2022,
+    "productionCountry": "USA",
+    "distributor": "Paramount Pictures",
+    "director": "Joseph Kosinski",
+    "topCast": [
+      "Tom Cruise",
+      "Miles Teller",
+      "Jennifer Connelly"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2023,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Oppenheimer",
+    "releaseYear": 2023,
+    "productionCountry": "USA",
+    "distributor": "Universal Pictures",
+    "director": "Christopher Nolan",
+    "topCast": [
+      "Cillian Murphy",
+      "Emily Blunt",
+      "Matt Damon"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2024,
+        "category": "Best Picture",
+        "won": true
+      }
+    ]
+  },
+  {
+    "title": "Barbie",
+    "releaseYear": 2023,
+    "productionCountry": "USA",
+    "distributor": "Warner Bros.",
+    "director": "Greta Gerwig",
+    "topCast": [
+      "Margot Robbie",
+      "Ryan Gosling",
+      "America Ferrera"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2024,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "Killers of the Flower Moon",
+    "releaseYear": 2023,
+    "productionCountry": "USA",
+    "distributor": "Apple Original Films",
+    "director": "Martin Scorsese",
+    "topCast": [
+      "Leonardo DiCaprio",
+      "Lily Gladstone",
+      "Robert De Niro"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2024,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  },
+  {
+    "title": "American Fiction",
+    "releaseYear": 2023,
+    "productionCountry": "USA",
+    "distributor": "Amazon MGM Studios",
+    "director": "Cord Jefferson",
+    "topCast": [
+      "Jeffrey Wright",
+      "Tracee Ellis Ross",
+      "Sterling K. Brown"
+    ],
+    "nominations": [
+      {
+        "ceremonyYear": 2024,
+        "category": "Best Picture",
+        "won": false
+      }
+    ]
+  }
 ]

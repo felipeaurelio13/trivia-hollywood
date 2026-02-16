@@ -1,7 +1,26 @@
 import { MovieRecord, TriviaQuestion } from './types';
 
+function randomInt(maxExclusive: number): number {
+  if (maxExclusive <= 0) return 0;
+
+  if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+    const values = new Uint32Array(1);
+    crypto.getRandomValues(values);
+    return values[0] % maxExclusive;
+  }
+
+  return Math.floor(Math.random() * maxExclusive);
+}
+
 function shuffle<T>(items: T[]): T[] {
-  return [...items].sort(() => Math.random() - 0.5);
+  const copy = [...items];
+
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = randomInt(index + 1);
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+
+  return copy;
 }
 
 function uniqueValues(items: string[]): string[] {
@@ -96,7 +115,28 @@ function createOscarQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQue
   };
 }
 
-const NON_NOMINATED_US_FILMS = ['The Hangover', 'Hocus Pocus', 'The Warriors', 'Fast & Furious'];
+const NON_NOMINATED_US_FILMS = [
+  'The Hangover',
+  'Hocus Pocus',
+  'The Warriors',
+  'Fast & Furious',
+  'Zodiac',
+  'The Breakfast Club',
+  'The Goonies',
+  'Groundhog Day',
+  'School of Rock',
+  'The Truman Show',
+  'Fight Club',
+  'The Big Lebowski',
+  'Mean Girls',
+  'The Iron Giant',
+  'The Princess Bride',
+  'Nightcrawler',
+  'Superbad',
+  'Taken',
+  'The Conjuring',
+  'Madagascar'
+];
 
 function createIntruderQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQuestion {
   const nominated = pickDistinct(
@@ -105,7 +145,7 @@ function createIntruderQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
       .map((m) => m.title),
     3
   );
-  const intruder = NON_NOMINATED_US_FILMS[Math.floor(Math.random() * NON_NOMINATED_US_FILMS.length)];
+  const intruder = NON_NOMINATED_US_FILMS[randomInt(NON_NOMINATED_US_FILMS.length)];
   const options = buildOptions(intruder, nominated, `INTRUDER · ${movie.title}`);
   return {
     id: crypto.randomUUID(),
@@ -118,18 +158,23 @@ function createIntruderQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
   };
 }
 
-const ORDER: Array<TriviaQuestion['type']> = [
-  'DIRECTOR',
-  'CAST',
-  'YEAR',
-  'OSCAR',
-  'DIRECTOR',
-  'CAST',
-  'YEAR',
-  'OSCAR',
-  'DIRECTOR',
-  'INTRUDER'
-];
+function buildQuestionPlan(): Array<TriviaQuestion['type']> {
+  const required: Array<TriviaQuestion['type']> = ['DIRECTOR', 'CAST', 'YEAR', 'OSCAR', 'INTRUDER'];
+  const weightedPool: Array<TriviaQuestion['type']> = [
+    'DIRECTOR',
+    'DIRECTOR',
+    'CAST',
+    'CAST',
+    'YEAR',
+    'YEAR',
+    'OSCAR',
+    'OSCAR',
+    'INTRUDER'
+  ];
+
+  const additional = Array.from({ length: 5 }).map(() => weightedPool[randomInt(weightedPool.length)]);
+  return shuffle([...required, ...additional]);
+}
 
 export function generateSoloQuestions(movies: MovieRecord[]): TriviaQuestion[] {
   if (movies.length < 12) {
@@ -137,8 +182,9 @@ export function generateSoloQuestions(movies: MovieRecord[]): TriviaQuestion[] {
   }
 
   const selected = shuffle(movies).slice(0, 10);
+  const questionPlan = buildQuestionPlan();
 
-  return ORDER.map((type, index) => {
+  return questionPlan.map((type, index) => {
     const movie = selected[index];
     switch (type) {
       case 'DIRECTOR':
