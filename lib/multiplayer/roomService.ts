@@ -21,6 +21,15 @@ interface JoinRoomInput {
   displayName: string;
 }
 
+interface RoomPreview {
+  code: string;
+  status: 'waiting' | 'started' | 'finished';
+  maxPlayers: number;
+  currentPlayers: number;
+  seatsLeft: number;
+  createdAt: Date;
+}
+
 export async function createRoom({ maxPlayers }: CreateRoomInput) {
   if (!isRoomCapacityValid(maxPlayers)) {
     const message = getRoomCapacityError(maxPlayers) ?? 'Capacidad inválida para la sala.';
@@ -64,7 +73,7 @@ export async function createRoom({ maxPlayers }: CreateRoomInput) {
   );
 }
 
-export async function findRoomByCode(inputCode: string) {
+export async function findRoomByCode(inputCode: string): Promise<RoomPreview> {
   const normalizedCode = normalizeRoomCode(inputCode);
 
   if (!isRoomCodeFormatValid(normalizedCode)) {
@@ -99,6 +108,35 @@ export async function findRoomByCode(inputCode: string) {
     currentPlayers,
     seatsLeft: Math.max(room.maxPlayers - currentPlayers, 0),
     createdAt: room.createdAt
+  };
+}
+
+export async function getRoomLobbyByCode(inputCode: string) {
+  const preview = await findRoomByCode(inputCode);
+
+  const room = await prisma.room.findUnique({
+    where: { code: preview.code },
+    select: {
+      players: {
+        select: {
+          id: true,
+          displayName: true,
+          joinedAt: true
+        },
+        orderBy: {
+          joinedAt: 'asc'
+        }
+      }
+    }
+  });
+
+  if (!room) {
+    throw new Error('No encontramos una sala con ese código. Revisa e intenta de nuevo.');
+  }
+
+  return {
+    ...preview,
+    players: room.players
   };
 }
 

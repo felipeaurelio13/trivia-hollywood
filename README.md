@@ -75,6 +75,11 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
+## Novedades de UX multiplayer (v0.9.7)
+- La búsqueda de sala ahora devuelve estado de lobby con listado de jugadores ya unidos, ordenados por ingreso.
+- En `/multiplayer`, el bloque de sala encontrada muestra explícitamente quiénes están esperando para mejorar claridad y coordinación antes del inicio.
+- Al unirte correctamente, el listado de jugadores se actualiza en la UI al instante para reducir fricción y evitar ambigüedad.
+
 ## Novedades de UX y calidad (v0.9.6)
 - El generador de preguntas ahora deduplica y valida opciones antes de renderizar cada pregunta para impedir alternativas repetidas (A/B/C/D siempre únicas).
 - Si una combinación de datos no permite generar 4 alternativas únicas para un tipo de pregunta, se corta la generación con error explícito para proteger la calidad de la partida.

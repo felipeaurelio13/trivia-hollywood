@@ -16,7 +16,7 @@
 - [x] Modelo `Room`, `RoomPlayer`, `RoomRun`, `RoomQuestionSet`.
 - [x] Crear sala privada con código corto.
 - [x] Join room con validación de capacidad (2–8).
-- [ ] Lobby con estado `waiting` y lista de jugadores.
+- [x] Lobby con estado `waiting` y lista de jugadores.
 - [ ] Congelar set de 10 preguntas al iniciar sala.
 - [ ] Juego asincrónico por jugador + persistencia de respuestas/tiempo.
 - [ ] Leaderboard final por score y desempate por menor tiempo.

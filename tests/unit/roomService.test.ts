@@ -1,4 +1,4 @@
-import { findRoomByCode, joinRoom } from '@/lib/multiplayer/roomService';
+import { findRoomByCode, getRoomLobbyByCode, joinRoom } from '@/lib/multiplayer/roomService';
 
 const { findUniqueMock, createPlayerMock } = vi.hoisted(() => ({
   findUniqueMock: vi.fn(),
@@ -56,6 +56,44 @@ describe('roomService.findRoomByCode', () => {
     findUniqueMock.mockResolvedValue(null);
 
     await expect(findRoomByCode('ABC234')).rejects.toThrow(/No encontramos una sala/);
+  });
+});
+
+
+describe('roomService.getRoomLobbyByCode', () => {
+  beforeEach(() => {
+    findUniqueMock.mockReset();
+    createPlayerMock.mockReset();
+  });
+
+  it('devuelve jugadores ordenados para el lobby', async () => {
+    findUniqueMock
+      .mockResolvedValueOnce({
+        code: 'ABC234',
+        status: 'waiting',
+        maxPlayers: 4,
+        createdAt: new Date('2026-01-01T00:00:00.000Z'),
+        _count: { players: 2 }
+      })
+      .mockResolvedValueOnce({
+        players: [
+          { id: 'p1', displayName: 'Sofía', joinedAt: new Date('2026-01-01T00:00:00.000Z') },
+          { id: 'p2', displayName: 'Mario', joinedAt: new Date('2026-01-01T00:01:00.000Z') }
+        ]
+      });
+
+    const room = await getRoomLobbyByCode('abc234');
+
+    expect(findUniqueMock).toHaveBeenNthCalledWith(2,
+      expect.objectContaining({
+        where: { code: 'ABC234' },
+        select: expect.objectContaining({
+          players: expect.any(Object)
+        })
+      })
+    );
+    expect(room.players).toHaveLength(2);
+    expect(room.players[0]?.displayName).toBe('Sofía');
   });
 });
 

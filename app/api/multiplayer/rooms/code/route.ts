@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { findRoomByCode, joinRoom } from '@/lib/multiplayer/roomService';
+import { getRoomLobbyByCode, joinRoom } from '@/lib/multiplayer/roomService';
 
 export const dynamic = 'force-static';
 
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Debes indicar un código de sala válido.' }, { status: 400 });
     }
 
-    const room = await findRoomByCode(code);
+    const room = await getRoomLobbyByCode(code);
 
     return NextResponse.json({ room }, { status: 200 });
   } catch (error) {

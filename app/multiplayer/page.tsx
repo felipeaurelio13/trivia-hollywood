@@ -17,12 +17,19 @@ interface CreatedRoom {
   maxPlayers: number;
 }
 
+interface JoinedRoomPlayer {
+  id: string;
+  displayName: string;
+  joinedAt: string;
+}
+
 interface JoinedRoomPreview {
   code: string;
   status: 'waiting' | 'started' | 'finished';
   maxPlayers: number;
   currentPlayers: number;
   seatsLeft: number;
+  players: JoinedRoomPlayer[];
 }
 
 interface JoinedRoomResult {
@@ -134,6 +141,26 @@ export default function MultiplayerPage() {
 
       setJoinSuccess(payload.joined);
       setDisplayName('');
+      setJoinedRoom((current) => {
+        if (!current) {
+          return current;
+        }
+
+        const alreadyJoined = current.players.some((player) => player.id === payload.joined?.player.id);
+
+        if (alreadyJoined || !payload.joined) {
+          return current;
+        }
+
+        const updatedPlayers = [...current.players, payload.joined.player];
+
+        return {
+          ...current,
+          players: updatedPlayers,
+          currentPlayers: updatedPlayers.length,
+          seatsLeft: Math.max(current.maxPlayers - updatedPlayers.length, 0)
+        };
+      });
     } catch (error) {
       setJoinSuccess(null);
       setJoinError(error instanceof Error ? error.message : 'No se pudo unir a la sala.');
@@ -239,6 +266,22 @@ export default function MultiplayerPage() {
               <p className="text-base text-cyan-100">
                 Jugadores: {joinedRoom.currentPlayers}/{joinedRoom.maxPlayers} · Cupos libres: {joinedRoom.seatsLeft}
               </p>
+            </div>
+
+            <div className="space-y-2 rounded-xl border border-cyan-300/60 bg-slate-950/60 p-3">
+              <p className="text-sm font-semibold text-cyan-100">Jugadores en lobby ({joinedRoom.players.length})</p>
+              {joinedRoom.players.length === 0 ? (
+                <p className="text-sm text-cyan-200">Aún no hay jugadores en la sala.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {joinedRoom.players.map((player) => (
+                    <li key={player.id} className="flex items-center justify-between rounded-lg border border-slate-700 px-3 py-2">
+                      <span className="text-base text-slate-100">{player.displayName}</span>
+                      <span className="text-xs uppercase tracking-wider text-cyan-200">En lobby</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <label className="block space-y-2 text-base" htmlFor="display-name">
