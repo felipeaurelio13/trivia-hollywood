@@ -75,6 +75,12 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
+## Novedades de UX y calidad (v0.9.7)
+- La explicación en juego ahora aparece solo después de responder, evitando contenido redundante antes de la interacción.
+- Se mejoró el contenido de feedback para aportar contexto útil (p. ej. ceremonia/etapa) en lugar de repetir literalmente la respuesta.
+- Se ajustó el layout de `/solo/play` para mantener visible el CTA de avance en móvil y evitar que quede fuera del área útil.
+- Se actualizaron pruebas e2e y unitarias para cubrir visibilidad del CTA, feedback post-respuesta y calidad mínima de explicación.
+
 ## Novedades de UX y calidad (v0.9.6)
 - El generador de preguntas ahora deduplica y valida opciones antes de renderizar cada pregunta para impedir alternativas repetidas (A/B/C/D siempre únicas).
 - Si una combinación de datos no permite generar 4 alternativas únicas para un tipo de pregunta, se corta la generación con error explícito para proteger la calidad de la partida.

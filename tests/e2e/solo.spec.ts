@@ -20,7 +20,7 @@ test('accesibilidad visual 70+ en home', async ({ page }) => {
   await expect(skipLink).toBeAttached();
 });
 
-test('pregunta completa visible y explicación diferenciada en juego', async ({ page }) => {
+test('pregunta completa visible, feedback útil y CTA accesible en juego', async ({ page }) => {
   await page.goto('/solo');
   await page.getByRole('button', { name: /Comenzar partida/i }).click();
 
@@ -28,9 +28,16 @@ test('pregunta completa visible y explicación diferenciada en juego', async ({ 
   await expect(questionHeading).toBeVisible();
   await expect(questionHeading).not.toHaveClass(/line-clamp/);
 
-  const explanationTitle = page.getByText('Explicación', { exact: true });
-  await expect(explanationTitle).toBeVisible();
-
   const firstOption = page.getByRole('button', { name: /Opción 1:/i });
   await expect(firstOption).toContainText('A');
+
+  const nextButton = page.getByRole('button', { name: /Siguiente pregunta|Ver resultados/i });
+  await expect(nextButton).toBeVisible();
+  await expect(nextButton).toBeDisabled();
+
+  await firstOption.click();
+
+  const explanationTitle = page.getByText('Explicación', { exact: true });
+  await expect(explanationTitle).toBeVisible();
+  await expect(nextButton).toBeEnabled();
 });

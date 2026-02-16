@@ -41,7 +41,7 @@ function createDirectorQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
     prompt: `¿Quién dirigió "${movie.title}"?`,
     options,
     correctIndex: options.indexOf(movie.director),
-    explanation: `${movie.title} fue dirigida por ${movie.director}.`,
+    explanation: `También figura con nominación al Oscar en ${movie.nominations[0].ceremonyYear}.`,
     movieTitle: movie.title
   };
 }
@@ -59,7 +59,7 @@ function createCastQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
     prompt: `¿Qué actor/actriz forma parte del reparto principal de "${movie.title}"?`,
     options,
     correctIndex: options.indexOf(correct),
-    explanation: `${correct} aparece dentro del reparto principal acreditado.`,
+    explanation: `${movie.title} compitió por Mejor Película en ${movie.nominations[0].ceremonyYear}.`,
     movieTitle: movie.title
   };
 }
@@ -77,7 +77,7 @@ function createYearQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
     prompt: `¿En qué año se estrenó "${movie.title}"?`,
     options,
     correctIndex: options.indexOf(correct),
-    explanation: `${movie.title} se estrenó en ${movie.releaseYear}.`,
+    explanation: `Es de la etapa ${movie.decade} dentro del set curado.`,
     movieTitle: movie.title
   };
 }

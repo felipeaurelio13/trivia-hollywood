@@ -8,7 +8,9 @@ const movies: MovieRecord[] = Array.from({ length: 12 }).map((_, idx) => ({
   decade: '1990s',
   director: `Director ${idx + 1}`,
   topCast: `Actor ${idx + 1}, Actor B${idx + 1}`,
-  nominations: [{ ceremonyYear: 2000 + idx, category: 'Best Picture', won: idx % 2 === 0 }]
+  nominations: [
+    { ceremonyYear: 2000 + idx, category: 'Best Picture', won: idx % 2 === 0 }
+  ]
 }));
 
 describe('generateSoloQuestions', () => {
@@ -31,8 +33,24 @@ describe('generateSoloQuestions', () => {
     });
   });
 
+  it('usa explicaciones de valor y no repite literal la respuesta correcta', () => {
+    const questions = generateSoloQuestions(movies);
+
+    const directorQuestion = questions.find(
+      (question) => question.type === 'DIRECTOR'
+    );
+    const yearQuestion = questions.find((question) => question.type === 'YEAR');
+
+    expect(directorQuestion).toBeDefined();
+    expect(yearQuestion).toBeDefined();
+    expect(directorQuestion?.explanation).not.toMatch(/fue dirigida por/i);
+    expect(yearQuestion?.explanation).toMatch(/etapa/i);
+  });
   it('falla si no hay distractores únicos suficientes', () => {
-    const duplicatedDirectors = movies.map((movie) => ({ ...movie, director: 'Same Director' }));
+    const duplicatedDirectors = movies.map((movie) => ({
+      ...movie,
+      director: 'Same Director'
+    }));
 
     expect(() => generateSoloQuestions(duplicatedDirectors)).toThrow(
       'No hay suficientes opciones únicas para DIRECTOR'
