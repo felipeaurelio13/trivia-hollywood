@@ -6,9 +6,28 @@
 
 body {
   @apply bg-slate-950 text-slate-100 antialiased;
+  font-size: 18px;
+  line-height: 1.5;
 }
 
 button:focus-visible,
 a:focus-visible {
-  @apply outline-2 outline-offset-2 outline-cyan-400;
+  @apply outline-4 outline-offset-4 outline-cyan-300;
+}
+
+button,
+a,
+input {
+  min-height: 3.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

@@ -66,13 +66,13 @@ export default function SoloPlayPage() {
   const selected = answers[currentIndex];
 
   return (
-    <section className="flex min-h-[calc(100dvh-7rem)] flex-col gap-3 overflow-hidden py-1">
-      <header className="space-y-1">
-        <p className="text-xs text-cyan-300">Pregunta {currentIndex + 1}/10</p>
-        <h1 className="line-clamp-2 text-lg font-semibold">{question.prompt}</h1>
+    <section className="flex min-h-[calc(100dvh-8rem)] flex-col gap-4 overflow-hidden py-2">
+      <header className="space-y-2">
+        <p className="text-base font-semibold text-cyan-200">Pregunta {currentIndex + 1} de 10</p>
+        <h1 className="line-clamp-2 text-2xl font-semibold leading-snug">{question.prompt}</h1>
       </header>
 
-      <div className="grid flex-1 grid-rows-4 gap-2">
+      <div className="grid flex-1 grid-rows-4 gap-3">
         {question.options.map((option, index) => {
           const isSelected = selected === index;
           const isCorrect = question.correctIndex === index;
@@ -84,14 +84,14 @@ export default function SoloPlayPage() {
               aria-label={`Opción ${index + 1}: ${option}`}
               disabled={disabled}
               onClick={() => submitAnswer(index)}
-              className={`rounded-2xl border p-3 text-left text-sm transition ${
+              className={`rounded-2xl border-2 p-4 text-left text-lg font-medium leading-snug transition ${
                 showFeedback
                   ? isCorrect
-                    ? 'border-emerald-400 bg-emerald-900/30'
+                    ? 'border-emerald-300 bg-emerald-900/40 text-emerald-100'
                     : isSelected
-                      ? 'border-rose-400 bg-rose-900/30'
-                      : 'border-slate-700 bg-slate-900'
-                  : 'border-slate-700 bg-slate-900 active:scale-[0.99]'
+                      ? 'border-rose-300 bg-rose-900/40 text-rose-100'
+                      : 'border-slate-600 bg-slate-900 text-slate-100'
+                  : 'border-slate-500 bg-slate-900 text-slate-100 hover:border-cyan-200'
               }`}
             >
               <span className="line-clamp-2">{option}</span>
@@ -100,17 +100,17 @@ export default function SoloPlayPage() {
         })}
       </div>
 
-      <div className="min-h-16 rounded-xl bg-slate-900 p-3 text-xs text-slate-300">
-        {showFeedback ? question.explanation : 'Selecciona una opción para recibir feedback inmediato.'}
+      <div className="min-h-20 rounded-2xl border-2 border-slate-700 bg-slate-900 p-4 text-base leading-relaxed text-slate-100">
+        {showFeedback ? question.explanation : 'Selecciona una opción para ver la explicación inmediata.'}
       </div>
 
       <button
         type="button"
         onClick={nextQuestion}
         disabled={!showFeedback}
-        className="h-12 rounded-2xl bg-cyan-500 text-base font-semibold text-slate-950 disabled:opacity-50"
+        className="h-16 rounded-2xl border-2 border-cyan-300 bg-cyan-200 text-lg font-bold text-slate-950 shadow-sm disabled:opacity-60"
       >
-        {currentIndex === 9 ? 'Ver resultados' : 'Siguiente'}
+        {currentIndex === 9 ? 'Ver resultados' : 'Siguiente pregunta'}
       </button>
     </section>
   );
