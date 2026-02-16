@@ -24,6 +24,7 @@
 ## Endpoints MVP
 - `GET /api/solo/start`: retorna `sessionId`, `startedAt`, `questions[10]`.
 - `POST /api/analytics`: recepción y log de eventos.
+- `POST /api/multiplayer/rooms`: crea sala privada con código corto único y capacidad 2–8.
 
 ## Multiplayer (diseño Milestone 2)
 Estados de sala:

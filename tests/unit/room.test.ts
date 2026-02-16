@@ -3,6 +3,7 @@ import {
   ROOM_MAX_PLAYERS,
   ROOM_MIN_PLAYERS,
   createRoomCode,
+  createUniqueRoomCode,
   getRoomCapacityError,
   isRoomCapacityValid,
   normalizeRoomCode
@@ -15,6 +16,16 @@ describe('multiplayer room helpers', () => {
     expect(code).toHaveLength(ROOM_CODE_LENGTH);
     expect(code).toBe(code.toUpperCase());
     expect(code).toMatch(/^[A-Z2-9]+$/);
+  });
+
+  it('genera un código único cuando hay códigos ya ocupados', () => {
+    const occupiedCodes = ['AAAAAA'];
+    const randomValues = [0, 0, 0, 0, 0, 0, 0.04, 0.04, 0.04, 0.04, 0.04, 0.04];
+    let index = 0;
+
+    const uniqueCode = createUniqueRoomCode(occupiedCodes, () => randomValues[index++] ?? 0.04, 3);
+
+    expect(uniqueCode).toBe('BBBBBB');
   });
 
   it('normaliza el código al pegar texto con espacios', () => {

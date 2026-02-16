@@ -14,7 +14,7 @@
 
 ## Milestone 2 — Multiplayer asincrónico (2–8)
 - [x] Modelo `Room`, `RoomPlayer`, `RoomRun`, `RoomQuestionSet`.
-- [ ] Crear sala privada con código corto.
+- [x] Crear sala privada con código corto.
 - [ ] Join room con validación de capacidad (2–8).
 - [ ] Lobby con estado `waiting` y lista de jugadores.
 - [ ] Congelar set de 10 preguntas al iniciar sala.
