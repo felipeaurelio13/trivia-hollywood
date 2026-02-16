@@ -75,7 +75,7 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
-## Novedades de UX (v0.9.4)
+## Novedades de UX (v0.9.5)
 - Nuevo bloque de diagnóstico en Ajustes para explicar por qué a veces se ve el README en lugar de la app y cómo corregirlo en GitHub Pages (URL correcta + fuente GitHub Actions).
 - Se documenta explícitamente la URL esperada de GitHub Pages (`https://<tu-usuario>.github.io/trivia-hollywood/`) y dónde verificar la URL final publicada (`page_url` en Actions).
 - En despliegue estático de GitHub Pages, la pantalla multiplayer ahora informa claramente que requiere runtime server y desactiva acciones de crear/buscar/unirse para evitar errores de uso.
@@ -89,10 +89,11 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Nuevo endpoint `POST /api/multiplayer/rooms` para persistir salas en estado `waiting` con validación de capacidad y reintentos por colisión de código.
 
 - Multiplayer ahora permite buscar una sala privada por código y ver estado/cupos antes de unirse.
-- Nuevo endpoint `GET /api/multiplayer/rooms/[code]` para validar código, consultar sala y retornar disponibilidad en tiempo real.
+- Nuevo endpoint `GET /api/multiplayer/rooms/code?code=<ROOM_CODE>` para validar código, consultar sala y retornar disponibilidad en tiempo real.
 
 - Join room ahora está habilitado end-to-end: búsqueda por código + ingreso con nombre + validación de estado/cupos en backend.
-- Nuevo endpoint `POST /api/multiplayer/rooms/[code]` para registrar jugador en salas `waiting`, validar nombre y bloquear salas llenas/ya iniciadas.
+- Nuevo endpoint `POST /api/multiplayer/rooms/code?code=<ROOM_CODE>` para registrar jugador en salas `waiting`, validar nombre y bloquear salas llenas/ya iniciadas.
 
 - Build de CI/servidor ahora conserva runtime (sin `output: "export"`) para que las API routes multiplayer funcionen en `next build`.
 - Export estático para GitHub Pages se activa solo en el workflow de Pages (o con `STATIC_EXPORT=true`).
+- Fix de build para GitHub Pages: se reemplazó la ruta dinámica `/api/multiplayer/rooms/[code]` por un endpoint estático con query (`/api/multiplayer/rooms/code?code=...`), evitando el error de export estático en `next build` durante Actions.
