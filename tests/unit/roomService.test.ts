@@ -1,13 +1,17 @@
-import { findRoomByCode } from '@/lib/multiplayer/roomService';
+import { findRoomByCode, joinRoom } from '@/lib/multiplayer/roomService';
 
-const { findUniqueMock } = vi.hoisted(() => ({
-  findUniqueMock: vi.fn()
+const { findUniqueMock, createPlayerMock } = vi.hoisted(() => ({
+  findUniqueMock: vi.fn(),
+  createPlayerMock: vi.fn()
 }));
 
 vi.mock('@/lib/prisma', () => ({
   prisma: {
     room: {
       findUnique: findUniqueMock
+    },
+    roomPlayer: {
+      create: createPlayerMock
     }
   }
 }));
@@ -15,6 +19,7 @@ vi.mock('@/lib/prisma', () => ({
 describe('roomService.findRoomByCode', () => {
   beforeEach(() => {
     findUniqueMock.mockReset();
+    createPlayerMock.mockReset();
   });
 
   it('normaliza el código y devuelve resumen de cupos', async () => {
@@ -51,5 +56,71 @@ describe('roomService.findRoomByCode', () => {
     findUniqueMock.mockResolvedValue(null);
 
     await expect(findRoomByCode('ABC234')).rejects.toThrow(/No encontramos una sala/);
+  });
+});
+
+describe('roomService.joinRoom', () => {
+  beforeEach(() => {
+    findUniqueMock.mockReset();
+    createPlayerMock.mockReset();
+  });
+
+  it('permite unirse a sala waiting con nombre válido', async () => {
+    findUniqueMock.mockResolvedValue({
+      id: 'room-1',
+      code: 'ABC234',
+      status: 'waiting',
+      maxPlayers: 4,
+      _count: { players: 2 }
+    });
+    createPlayerMock.mockResolvedValue({
+      id: 'player-1',
+      displayName: 'Sofía',
+      joinedAt: new Date('2026-01-01T00:00:00.000Z')
+    });
+
+    const joined = await joinRoom({ roomCode: 'abc234', displayName: '  Sofía ' });
+
+    expect(findUniqueMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { code: 'ABC234' }
+      })
+    );
+    expect(createPlayerMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: {
+          roomId: 'room-1',
+          displayName: 'Sofía'
+        }
+      })
+    );
+    expect(joined.room.code).toBe('ABC234');
+    expect(joined.player.displayName).toBe('Sofía');
+  });
+
+  it('falla cuando la sala está completa', async () => {
+    findUniqueMock.mockResolvedValue({
+      id: 'room-1',
+      code: 'ABC234',
+      status: 'waiting',
+      maxPlayers: 2,
+      _count: { players: 2 }
+    });
+
+    await expect(joinRoom({ roomCode: 'ABC234', displayName: 'Mario' })).rejects.toThrow(/completa/);
+    expect(createPlayerMock).not.toHaveBeenCalled();
+  });
+
+  it('falla cuando el nombre ya existe en la sala', async () => {
+    findUniqueMock.mockResolvedValue({
+      id: 'room-1',
+      code: 'ABC234',
+      status: 'waiting',
+      maxPlayers: 4,
+      _count: { players: 3 }
+    });
+    createPlayerMock.mockRejectedValue({ code: 'P2002' });
+
+    await expect(joinRoom({ roomCode: 'ABC234', displayName: 'Mario' })).rejects.toThrow(/ya está en uso/);
   });
 });

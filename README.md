@@ -70,7 +70,7 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
-## Novedades de UX (v0.8.0)
+## Novedades de UX (v0.9.0)
 - La pregunta en juego se muestra completa (sin truncado con puntos suspensivos).
 - Las alternativas incorporan identificador visual A/B/C/D para mejorar escaneabilidad.
 - El bloque de explicación final ahora se diferencia mejor con estilo y título explícito.
@@ -82,4 +82,7 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 
 - Multiplayer ahora permite buscar una sala privada por código y ver estado/cupos antes de unirse.
 - Nuevo endpoint `GET /api/multiplayer/rooms/[code]` para validar código, consultar sala y retornar disponibilidad en tiempo real.
+
+- Join room ahora está habilitado end-to-end: búsqueda por código + ingreso con nombre + validación de estado/cupos en backend.
+- Nuevo endpoint `POST /api/multiplayer/rooms/[code]` para registrar jugador en salas `waiting`, validar nombre y bloquear salas llenas/ya iniciadas.
 

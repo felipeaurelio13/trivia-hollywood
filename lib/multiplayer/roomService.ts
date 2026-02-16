@@ -1,9 +1,11 @@
 import { prisma } from '@/lib/prisma';
 import {
   createRoomCode,
+  getPlayerDisplayNameError,
   getRoomCapacityError,
   isRoomCapacityValid,
   isRoomCodeFormatValid,
+  normalizePlayerDisplayName,
   normalizeRoomCode,
   ROOM_MAX_PLAYERS,
   ROOM_MIN_PLAYERS
@@ -11,6 +13,12 @@ import {
 
 interface CreateRoomInput {
   maxPlayers: number;
+}
+
+
+interface JoinRoomInput {
+  roomCode: string;
+  displayName: string;
 }
 
 export async function createRoom({ maxPlayers }: CreateRoomInput) {
@@ -92,4 +100,82 @@ export async function findRoomByCode(inputCode: string) {
     seatsLeft: Math.max(room.maxPlayers - currentPlayers, 0),
     createdAt: room.createdAt
   };
+}
+
+
+export async function joinRoom({ roomCode, displayName }: JoinRoomInput) {
+  const normalizedCode = normalizeRoomCode(roomCode);
+
+  if (!isRoomCodeFormatValid(normalizedCode)) {
+    throw new Error('Ingresa un código de sala válido de 6 caracteres.');
+  }
+
+  const normalizedDisplayName = normalizePlayerDisplayName(displayName);
+  const displayNameError = getPlayerDisplayNameError(normalizedDisplayName);
+
+  if (displayNameError) {
+    throw new Error(displayNameError);
+  }
+
+  const room = await prisma.room.findUnique({
+    where: { code: normalizedCode },
+    select: {
+      id: true,
+      code: true,
+      status: true,
+      maxPlayers: true,
+      _count: {
+        select: { players: true }
+      }
+    }
+  });
+
+  if (!room) {
+    throw new Error('No encontramos una sala con ese código. Revisa e intenta de nuevo.');
+  }
+
+  if (room.status !== 'waiting') {
+    throw new Error('Esta sala ya no está disponible para nuevos jugadores.');
+  }
+
+  const currentPlayers = room._count.players;
+
+  if (currentPlayers >= room.maxPlayers) {
+    throw new Error('La sala está completa. Pide otro código o crea una nueva sala.');
+  }
+
+  try {
+    const player = await prisma.roomPlayer.create({
+      data: {
+        roomId: room.id,
+        displayName: normalizedDisplayName
+      },
+      select: {
+        id: true,
+        displayName: true,
+        joinedAt: true
+      }
+    });
+
+    return {
+      room: {
+        code: room.code,
+        status: room.status,
+        maxPlayers: room.maxPlayers
+      },
+      player
+    };
+  } catch (error) {
+    const duplicateNameError =
+      typeof error === 'object' &&
+      error !== null &&
+      'code' in error &&
+      (error as { code?: string }).code === 'P2002';
+
+    if (duplicateNameError) {
+      throw new Error('Ese nombre ya está en uso en esta sala. Elige otro para continuar.');
+    }
+
+    throw error;
+  }
 }
