@@ -65,12 +65,18 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 3. Haz push a `main`.
 4. El workflow `Deploy to GitHub Pages` construye y publica automáticamente el contenido estático en `out/`.
 
+### URL pública
+- Formato estándar: `https://<tu-usuario>.github.io/<tu-repo>/`
+- Para este repositorio, la ruta esperada es: `https://<tu-usuario>.github.io/trivia-hollywood/`
+- La URL exacta publicada queda visible al finalizar el job **deploy** en Actions, en el campo `page_url`.
+
 ### Notas técnicas
 - Se usa `output: "export"` para generar sitio estático.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
-## Novedades de UX (v0.9.2)
+## Novedades de UX (v0.9.3)
+- Se documenta explícitamente la URL esperada de GitHub Pages (`https://<tu-usuario>.github.io/trivia-hollywood/`) y dónde verificar la URL final publicada (`page_url` en Actions).
 - En despliegue estático de GitHub Pages, la pantalla multiplayer ahora informa claramente que requiere runtime server y desactiva acciones de crear/buscar/unirse para evitar errores de uso.
 - La pregunta en juego se muestra completa (sin truncado con puntos suspensivos).
 - Las alternativas incorporan identificador visual A/B/C/D para mejorar escaneabilidad.
@@ -89,4 +95,3 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 
 - Build de CI/servidor ahora conserva runtime (sin `output: "export"`) para que las API routes multiplayer funcionen en `next build`.
 - Export estático para GitHub Pages se activa solo en el workflow de Pages (o con `STATIC_EXPORT=true`).
-
