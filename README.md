@@ -75,6 +75,13 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
+## Novedades de UX y calidad (v0.10.0)
+- El dataset curado se amplió a 54 largometrajes elegibles (USA + >=1 nominación Oscar) para reducir repeticiones y mejorar cobertura histórica en modo solo.
+- El generador de preguntas ahora usa barajado Fisher-Yates con aleatoriedad criptográfica cuando está disponible, mejorando la variación entre partidas consecutivas.
+- El plan de 10 preguntas se genera por partida con mezcla dinámica y garantía de incluir todos los tipos A/B/C/D/E (DIRECTOR/CAST/YEAR/OSCAR/INTRUDER).
+- Se amplió el pool de películas intrusas no nominadas para evitar patrones repetitivos en ese tipo de pregunta.
+- Nuevas pruebas unitarias para validar la mezcla completa de tipos y el tamaño mínimo del dataset curado.
+
 ## Novedades de UX y calidad (v0.9.8)
 - La pantalla de juego solo ahora incorpora una barra de progreso accesible con porcentaje visible para reducir incertidumbre durante la partida.
 - Se añade contador de aciertos en tiempo real para reforzar feedback motivacional sin fricción.

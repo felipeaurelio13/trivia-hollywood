@@ -5,7 +5,7 @@ Cargar películas elegibles (USA + >=1 nominación Oscar) para alimentar trivia.
 
 ## Fuente actual
 - `data/movies.sample.json`
-- Dataset **real** curado manualmente para MVP.
+- Dataset **real** curado manualmente (54 largometrajes elegibles) para mejorar cobertura y variedad de preguntas en modo solo.
 
 ## Formato
 Cada item:

@@ -25,6 +25,14 @@ describe('generateSoloQuestions', () => {
     });
   });
 
+
+  it('incluye mezcla completa de tipos en cada partida', () => {
+    const questions = generateSoloQuestions(movies);
+    const types = new Set(questions.map((question) => question.type));
+
+    expect(types).toEqual(new Set(['DIRECTOR', 'CAST', 'YEAR', 'OSCAR', 'INTRUDER']));
+  });
+
   it('garantiza 4 opciones únicas por pregunta', () => {
     const questions = generateSoloQuestions(movies);
 
