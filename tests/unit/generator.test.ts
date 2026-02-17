@@ -54,6 +54,32 @@ describe('generateSoloQuestions', () => {
     expect(directorQuestion?.explanation).not.toMatch(/fue dirigida por/i);
     expect(yearQuestion?.explanation).toMatch(/etapa/i);
   });
+
+
+  it('usa años cercanos para evitar opciones demasiado obvias', () => {
+    const questions = generateSoloQuestions(movies);
+    const yearQuestion = questions.find((question) => question.type === 'YEAR');
+
+    expect(yearQuestion).toBeDefined();
+
+    const correctYear = Number(yearQuestion?.options[yearQuestion.correctIndex ?? 0]);
+    const distances = yearQuestion?.options
+      .map((option) => Math.abs(Number(option) - correctYear))
+      .filter((distance) => distance > 0) ?? [];
+
+    expect(distances).toHaveLength(3);
+    expect(Math.max(...distances)).toBeLessThanOrEqual(8);
+  });
+
+  it('formula la pregunta intrusa en lenguaje claro para usuario final', () => {
+    const questions = generateSoloQuestions(movies);
+    const intruderQuestion = questions.find((question) => question.type === 'INTRUDER');
+
+    expect(intruderQuestion).toBeDefined();
+    expect(intruderQuestion?.prompt).toMatch(/NO tiene nominaciones al Oscar/i);
+    expect(intruderQuestion?.explanation).toMatch(/las demás sí fueron nominadas/i);
+  });
+
   it('falla si no hay distractores únicos suficientes', () => {
     const duplicatedDirectors = movies.map((movie) => ({
       ...movie,

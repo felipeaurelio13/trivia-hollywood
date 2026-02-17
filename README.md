@@ -79,6 +79,13 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - Se calcula `basePath`/`assetPrefix` automáticamente durante Actions usando `GITHUB_REPOSITORY`, para que funcione en repos de tipo `usuario/repo`.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
+
+## Novedades de UX y claridad de preguntas (v0.10.3)
+- La pregunta tipo intrusa se reescribió con lenguaje directo para usuario final: ahora pregunta explícitamente qué película **NO** tiene nominaciones al Oscar.
+- La explicación de esa pregunta también se simplificó para evitar referencias internas al dataset y mejorar comprensión inmediata.
+- Las preguntas de año ahora eligen distractores cercanos al estreno correcto (cuando hay datos disponibles), reduciendo respuestas evidentes por saltos demasiado grandes.
+- Se añadieron pruebas unitarias para validar redacción clara en intrusa y cercanía de años en opciones.
+
 ## Novedades de UX y despliegue (v0.10.2)
 - Multiplayer en GitHub Pages ahora funciona apuntando a un backend externo configurable con `NEXT_PUBLIC_MULTIPLAYER_API_BASE_URL`.
 - El cliente multiplayer ya no depende únicamente de rutas relativas: crea/busca/une sala usando la URL base configurada.

@@ -85,9 +85,18 @@ function createCastQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
 
 function createYearQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQuestion {
   const correct = String(movie.releaseYear);
+  const allYears = uniqueValues(pool.map((m) => String(m.releaseYear))).filter((year) => year !== correct);
+  const nearbyYears = allYears
+    .map((year) => ({
+      year,
+      distance: Math.abs(Number(year) - movie.releaseYear)
+    }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 8)
+    .map((item) => item.year);
   const options = buildOptions(
     correct,
-    pool.map((m) => String(m.releaseYear)),
+    nearbyYears.length >= 3 ? nearbyYears : allYears,
     `YEAR · ${movie.title}`
   );
   return {
@@ -96,7 +105,7 @@ function createYearQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
     prompt: `¿En qué año se estrenó "${movie.title}"?`,
     options,
     correctIndex: options.indexOf(correct),
-    explanation: `Es de la etapa ${movie.decade} dentro del set curado.`,
+    explanation: `Se estrenó en la etapa ${movie.decade} del cine de Hollywood con nominación al Oscar.`,
     movieTitle: movie.title
   };
 }
@@ -150,10 +159,10 @@ function createIntruderQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
   return {
     id: crypto.randomUUID(),
     type: 'INTRUDER',
-    prompt: '¿Cuál opción es la intrusa según el set confiable de nominadas?',
+    prompt: '¿Cuál de estas películas NO tiene nominaciones al Oscar?',
     options,
     correctIndex: options.indexOf(intruder),
-    explanation: `${intruder} no registra nominación al Oscar en el set curado.`,
+    explanation: `${intruder} no recibió nominaciones al Oscar; las demás sí fueron nominadas.`,
     movieTitle: movie.title
   };
 }
