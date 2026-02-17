@@ -76,8 +76,20 @@ describe('generateSoloQuestions', () => {
     const intruderQuestion = questions.find((question) => question.type === 'INTRUDER');
 
     expect(intruderQuestion).toBeDefined();
+    expect(intruderQuestion?.prompt).toMatch(/única película de la lista/i);
     expect(intruderQuestion?.prompt).toMatch(/NO tiene nominaciones al Oscar/i);
     expect(intruderQuestion?.explanation).toMatch(/las demás sí fueron nominadas/i);
+  });
+
+  it('redacta prompts con contexto explícito para usuario final en todos los tipos', () => {
+    const questions = generateSoloQuestions(movies);
+    const byType = Object.fromEntries(questions.map((question) => [question.type, question]));
+
+    expect(byType.DIRECTOR?.prompt).toMatch(/Selecciona quién dirigió la película/i);
+    expect(byType.CAST?.prompt).toMatch(/Selecciona a un actor o actriz del reparto principal/i);
+    expect(byType.YEAR?.prompt).toMatch(/año se estrenó la película/i);
+    expect(byType.OSCAR?.prompt).toMatch(/dato de los Premios Oscar/i);
+    expect(byType.INTRUDER?.prompt).toMatch(/única película de la lista/i);
   });
 
   it('falla si no hay distractores únicos suficientes', () => {
