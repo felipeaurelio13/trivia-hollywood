@@ -80,6 +80,11 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
 
+## Novedades de claridad de enunciados (v0.10.4)
+- Se reescribieron los enunciados de todas las preguntas (director, reparto, año, Oscar e intrusa) con lenguaje más directo y contextual para personas que no participaron en la construcción de la plataforma.
+- Los prompts ahora explicitan mejor la acción esperada ("selecciona"/"elige") y el contexto ("la película", "Premios Oscar", "única película de la lista") para reducir ambigüedad.
+- Se agregaron pruebas unitarias para validar esta redacción clara en todos los tipos de pregunta y prevenir regresiones de UX.
+
 ## Novedades de UX y claridad de preguntas (v0.10.3)
 - La pregunta tipo intrusa se reescribió con lenguaje directo para usuario final: ahora pregunta explícitamente qué película **NO** tiene nominaciones al Oscar.
 - La explicación de esa pregunta también se simplificó para evitar referencias internas al dataset y mejorar comprensión inmediata.

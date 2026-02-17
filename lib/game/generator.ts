@@ -57,7 +57,7 @@ function createDirectorQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
   return {
     id: crypto.randomUUID(),
     type: 'DIRECTOR',
-    prompt: `¿Quién dirigió "${movie.title}"?`,
+    prompt: `Selecciona quién dirigió la película "${movie.title}".`,
     options,
     correctIndex: options.indexOf(movie.director),
     explanation: `También figura con nominación al Oscar en ${movie.nominations[0].ceremonyYear}.`,
@@ -75,7 +75,7 @@ function createCastQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
   return {
     id: crypto.randomUUID(),
     type: 'CAST',
-    prompt: `¿Qué actor/actriz forma parte del reparto principal de "${movie.title}"?`,
+    prompt: `Selecciona a un actor o actriz del reparto principal de "${movie.title}".`,
     options,
     correctIndex: options.indexOf(correct),
     explanation: `${movie.title} compitió por Mejor Película en ${movie.nominations[0].ceremonyYear}.`,
@@ -102,7 +102,7 @@ function createYearQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQues
   return {
     id: crypto.randomUUID(),
     type: 'YEAR',
-    prompt: `¿En qué año se estrenó "${movie.title}"?`,
+    prompt: `¿En qué año se estrenó la película "${movie.title}"?`,
     options,
     correctIndex: options.indexOf(correct),
     explanation: `Se estrenó en la etapa ${movie.decade} del cine de Hollywood con nominación al Oscar.`,
@@ -116,7 +116,7 @@ function createOscarQuestion(movie: MovieRecord, pool: MovieRecord[]): TriviaQue
   return {
     id: crypto.randomUUID(),
     type: 'OSCAR',
-    prompt: `¿Cuál dato Oscar corresponde a "${movie.title}"?`,
+    prompt: `Elige el dato de los Premios Oscar que corresponde a "${movie.title}".`,
     options,
     correctIndex: options.indexOf(correct),
     explanation: `Tuvo al menos una nominación Oscar en ${movie.nominations[0].ceremonyYear}.`,
@@ -159,7 +159,7 @@ function createIntruderQuestion(movie: MovieRecord, pool: MovieRecord[]): Trivia
   return {
     id: crypto.randomUUID(),
     type: 'INTRUDER',
-    prompt: '¿Cuál de estas películas NO tiene nominaciones al Oscar?',
+    prompt: 'Selecciona la única película de la lista que NO tiene nominaciones al Oscar.',
     options,
     correctIndex: options.indexOf(intruder),
     explanation: `${intruder} no recibió nominaciones al Oscar; las demás sí fueron nominadas.`,
