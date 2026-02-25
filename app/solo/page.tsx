@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createSoloSession } from '@/lib/game/sessionFactory';
@@ -31,11 +32,19 @@ export default function SoloStartPage() {
       <p className="text-lg leading-relaxed text-slate-100">
         Vas a responder 10 preguntas sobre largometrajes estadounidenses nominados al Oscar.
       </p>
+      <div className="card-panel space-y-2 text-base text-slate-100" aria-label="Resumen de dinámica">
+        <p className="font-semibold text-cyan-100">Antes de empezar:</p>
+        <ul className="space-y-1 text-sm leading-relaxed text-slate-200">
+          <li>• Duración estimada: 2 a 4 minutos.</li>
+          <li>• Selecciona una opción y luego confirma para evitar errores de toque.</li>
+          <li>• Puntaje: +100 por cada respuesta correcta.</li>
+        </ul>
+      </div>
       {hasSessionToResume ? (
         <button
           type="button"
           onClick={resumeGame}
-          className="h-16 rounded-2xl border-2 border-emerald-300 bg-emerald-200 px-4 text-lg font-bold text-emerald-950 shadow-sm transition hover:bg-emerald-100"
+          className="btn-secondary !h-16 !border-emerald-300 !bg-emerald-200 !text-lg !text-emerald-950 hover:!bg-emerald-100"
         >
           Reanudar partida
         </button>
@@ -44,7 +53,7 @@ export default function SoloStartPage() {
         type="button"
         onClick={startGame}
         disabled={loading}
-        className="h-16 rounded-2xl border-2 border-cyan-300 bg-cyan-200 px-4 text-lg font-bold text-slate-950 shadow-sm transition hover:bg-cyan-100 disabled:opacity-60"
+        className="btn-primary !h-16"
       >
         {loading ? 'Preparando partida...' : hasSessionToResume ? 'Iniciar partida nueva' : 'Comenzar partida'}
       </button>

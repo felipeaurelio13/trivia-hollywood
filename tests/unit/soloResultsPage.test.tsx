@@ -19,6 +19,8 @@ describe('SoloResultsPage', () => {
     render(<SoloResultsPage />);
 
     expect(screen.getByText(/Racha de experto en Hollywood/i)).toBeInTheDocument();
+    expect(screen.getByText(/mejora tu puntaje si priorizas precisión sobre velocidad/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /volver al inicio/i })).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /copiar resumen/i }));
 

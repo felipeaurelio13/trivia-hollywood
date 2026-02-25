@@ -83,7 +83,10 @@ describe('SoloPlayPage', () => {
   it('requiere confirmar respuesta y luego muestra feedback', () => {
     render(<SoloPlayPage />);
 
-    expect(screen.getByRole('button', { name: /confirmar respuesta/i })).toBeDisabled();
+    expect(screen.getByRole('button', { name: /selecciona una opción/i })).toBeDisabled();
+    expect(screen.getByText(/1\) Selecciona/i)).toBeInTheDocument();
+    expect(screen.getByText(/2\) Confirma/i)).toBeInTheDocument();
+    expect(screen.getByText(/00:05/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /Opción 3: 1997/i }));
     fireEvent.click(screen.getByRole('button', { name: /confirmar respuesta/i }));
@@ -92,7 +95,7 @@ describe('SoloPlayPage', () => {
     expect(screen.getByText(/Titanic se estrenó en 1997/i)).toBeInTheDocument();
     expect(screen.getByText(/Aciertos:/i)).toBeInTheDocument();
     expect(screen.getByText(/Restan/i)).toBeInTheDocument();
-    expect(screen.getByText(/5s/i)).toBeInTheDocument();
+    expect(screen.getByText(/Año de estreno/i)).toBeInTheDocument();
     expect(trackEventMock).toHaveBeenCalledWith(
       'answer_submitted',
       expect.objectContaining({
@@ -120,5 +123,15 @@ describe('SoloPlayPage', () => {
     fireEvent.keyDown(window, { key: 'Enter' });
 
     expect(screen.getByText(/¡Respuesta correcta!/i)).toBeInTheDocument();
+  });
+
+  it('si falla muestra explícitamente cuál era la correcta', () => {
+    render(<SoloPlayPage />);
+
+    fireEvent.click(screen.getByRole('button', { name: /Opción 1: 1995/i }));
+    fireEvent.click(screen.getByRole('button', { name: /confirmar respuesta/i }));
+
+    expect(screen.getByText(/Respuesta incorrecta/i)).toBeInTheDocument();
+    expect(screen.getByText(/Respuesta correcta: 1997/i)).toBeInTheDocument();
   });
 });

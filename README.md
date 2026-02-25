@@ -81,6 +81,20 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 
 
 
+
+## Novedades de UX crítica minimalista (v0.10.6)
+- Diagnóstico crítico de usabilidad aplicado al flujo completo con 10 mejoras enfocadas en claridad, prevención de errores y control percibido.
+- Refuerzo del patrón sin fricción en pre-juego: ahora Modo Solo muestra duración estimada, mecánica de doble acción y scoring antes de iniciar.
+- En juego, el cronómetro pasa a formato `mm:ss` para lectura inmediata en móvil y menor carga cognitiva.
+- Se añade chip del tipo de pregunta (Director/Elenco/Año/Oscars/Intrusa) para orientar contexto sin ruido visual.
+- Progreso más explícito: encabezado con `pregunta actual/10` y porcentaje con microcopy de completado.
+- Estado de confirmación más claro: CTA primario pasa a “Selecciona una opción” cuando aún no hay alternativa elegida.
+- Guía contextual dinámica: antes de responder indica el siguiente paso; tras seleccionar confirma la opción activa (A/B/C/D).
+- Feedback de error más empático: cuando se falla se muestra “Respuesta correcta: …” de forma explícita y breve.
+- Resultados agrega consejo accionable (precisión sobre velocidad) y salida secundaria “Volver al inicio”.
+- Se normalizaron clases reutilizables (`btn-primary`, `btn-secondary`, `card-panel`, `info-chip`) para reforzar DRY visual y consistencia.
+- Nuevas/actualizadas pruebas unitarias para Solo Start, Solo Play y Resultados cubriendo los cambios de UX.
+
 ## Novedades de UX minimalista y usabilidad crítica (v0.10.5)
 - Se hizo una revisión crítica del flujo completo con foco en fricción móvil y prevención de errores táctiles.
 - En `/solo/play`, las respuestas ahora requieren confirmación explícita para evitar toques accidentales y pérdida de confianza.

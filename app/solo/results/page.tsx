@@ -44,7 +44,7 @@ export default function SoloResultsPage() {
   return (
     <section className="flex min-h-[calc(100dvh-8rem)] flex-col justify-center gap-5">
       <h1 className="text-3xl font-bold">Resultados</h1>
-      <div className="space-y-3 rounded-2xl border-2 border-slate-700 p-5">
+      <div className="card-panel space-y-3">
         <p className="text-base text-slate-200">Puntaje total</p>
         <p className="text-5xl font-bold text-cyan-200">{result.score}</p>
         <p className="text-lg">Aciertos: {result.correctAnswers}/10</p>
@@ -53,18 +53,24 @@ export default function SoloResultsPage() {
           {performanceLabel}
         </p>
       </div>
+      <p className="text-sm text-slate-200" aria-live="polite">
+        Consejo rápido: mejora tu puntaje si priorizas precisión sobre velocidad.
+      </p>
       <button
         type="button"
         onClick={copySummary}
-        className="h-14 w-full rounded-2xl border-2 border-slate-500 bg-slate-900 px-4 text-base font-bold text-slate-100"
+        className="btn-secondary"
       >
         {copied ? 'Resumen copiado' : 'Copiar resumen'}
       </button>
       <Link
         href="/solo"
-        className="flex h-16 items-center justify-center rounded-2xl border-2 border-cyan-300 bg-cyan-200 px-4 text-lg font-bold text-slate-950 shadow-sm transition hover:bg-cyan-100"
+        className="btn-primary !flex !h-16 !items-center !justify-center"
       >
         Jugar otra vez
+      </Link>
+      <Link href="/" className="text-center text-sm font-semibold text-cyan-200 underline underline-offset-4">
+        Volver al inicio
       </Link>
     </section>
   );
