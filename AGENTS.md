@@ -36,3 +36,8 @@
 ## Nota de despliegue
 - El proyecto usa Prisma + API routes, por lo que requiere runtime server para MVP actual.
 - Si se despliega en GitHub Pages, separar frontend estático y backend/API en servicio aparte.
+
+
+## Aprendizajes de implementación
+- En preguntas de opción múltiple mobile-first, usar patrón de doble acción (seleccionar + confirmar) reduce errores de toque sin añadir ruido cuando el CTA es único y persistente.
+- Mostrar estado de progreso con tiempo y preguntas restantes disminuye ansiedad del usuario y mejora percepción de control.

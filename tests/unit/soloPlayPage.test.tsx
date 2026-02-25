@@ -8,7 +8,8 @@ const {
   saveSoloSessionMock,
   clearSoloSessionMock,
   trackEventMock,
-  loadSoloSessionMock
+  loadSoloSessionMock,
+  nowMock
 } = vi.hoisted(() => ({
   replaceMock: vi.fn(),
   pushMock: vi.fn(),
@@ -40,7 +41,8 @@ const {
         movieTitle: 'Avatar'
       }
     ]
-  }))
+  })),
+  nowMock: vi.fn(() => 1743273005000)
 }));
 
 vi.mock('next/navigation', () => ({
@@ -74,19 +76,23 @@ describe('SoloPlayPage', () => {
     clearSoloSessionMock.mockReset();
     trackEventMock.mockReset();
     localStorage.clear();
+    vi.spyOn(Date, 'now').mockImplementation(nowMock);
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
   });
 
-  it('muestra progreso y feedback con estado correcto/incorrecto tras responder', () => {
+  it('requiere confirmar respuesta y luego muestra feedback', () => {
     render(<SoloPlayPage />);
 
-    const progressBar = screen.getByRole('progressbar', { name: /progreso de preguntas respondidas/i });
-    expect(progressBar).toHaveAttribute('aria-valuenow', '50');
-    expect(screen.getByText(/Aciertos actuales:/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /confirmar respuesta/i })).toBeDisabled();
 
     fireEvent.click(screen.getByRole('button', { name: /Opción 3: 1997/i }));
+    fireEvent.click(screen.getByRole('button', { name: /confirmar respuesta/i }));
 
     expect(screen.getByText(/¡Respuesta correcta!/i)).toBeInTheDocument();
     expect(screen.getByText(/Titanic se estrenó en 1997/i)).toBeInTheDocument();
+    expect(screen.getByText(/Aciertos:/i)).toBeInTheDocument();
+    expect(screen.getByText(/Restan/i)).toBeInTheDocument();
+    expect(screen.getByText(/5s/i)).toBeInTheDocument();
     expect(trackEventMock).toHaveBeenCalledWith(
       'answer_submitted',
       expect.objectContaining({
@@ -95,5 +101,24 @@ describe('SoloPlayPage', () => {
         questionType: 'YEAR'
       })
     );
+  });
+
+  it('permite salir de la partida con confirmación explícita', () => {
+    render(<SoloPlayPage />);
+
+    fireEvent.click(screen.getByRole('button', { name: /salir/i }));
+
+    expect(window.confirm).toHaveBeenCalledWith('¿Seguro que quieres salir? Perderás el avance actual.');
+    expect(clearSoloSessionMock).toHaveBeenCalledTimes(1);
+    expect(pushMock).toHaveBeenCalledWith('/solo');
+  });
+
+  it('soporta atajos de teclado para seleccionar y confirmar', () => {
+    render(<SoloPlayPage />);
+
+    fireEvent.keyDown(window, { key: '3' });
+    fireEvent.keyDown(window, { key: 'Enter' });
+
+    expect(screen.getByText(/¡Respuesta correcta!/i)).toBeInTheDocument();
   });
 });
