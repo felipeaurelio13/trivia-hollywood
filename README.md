@@ -80,6 +80,19 @@ Este repositorio quedó preparado para despliegue estático en GitHub Pages.
 - La partida solo usa datos locales curados (`data/movies.sample.json`), sin API runtime.
 
 
+
+## Novedades de UX minimalista y usabilidad crítica (v0.10.5)
+- Se hizo una revisión crítica del flujo completo con foco en fricción móvil y prevención de errores táctiles.
+- En `/solo/play`, las respuestas ahora requieren confirmación explícita para evitar toques accidentales y pérdida de confianza.
+- Se añadió selección previa visible de alternativa + atajos de teclado (`1-4` y `Enter`) para mejorar accesibilidad y control.
+- Nuevo cronómetro visible por ronda y contador de preguntas restantes para reducir incertidumbre durante la partida.
+- Se agregó acción clara de **Salir** con confirmación para evitar abandonos involuntarios.
+- Si intentas cerrar/recargar en mitad de una pregunta sin responder, se activa advertencia de salida para proteger el progreso.
+- Se reforzó la guía contextual en pantalla de juego con microcopy dinámico (antes/después de responder).
+- Home ahora muestra chips de reglas clave (10 preguntas, 4 opciones, +100, sin vidas) para onboarding instantáneo.
+- Resultados incorpora etiqueta de desempeño comprensible y acción de copiar resumen para compartir/revisar progreso.
+- Se añadieron y actualizaron pruebas unitarias para blindar la nueva UX en Home, Solo Play y Resultados.
+
 ## Novedades de claridad de enunciados (v0.10.4)
 - Se reescribieron los enunciados de todas las preguntas (director, reparto, año, Oscar e intrusa) con lenguaje más directo y contextual para personas que no participaron en la construcción de la plataforma.
 - Los prompts ahora explicitan mejor la acción esperada ("selecciona"/"elige") y el contexto ("la película", "Premios Oscar", "única película de la lista") para reducir ambigüedad.
