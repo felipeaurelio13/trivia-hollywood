@@ -6,6 +6,28 @@ import { clearSoloSession, loadSoloSession, saveSoloSession } from '@/lib/game/s
 import { computeScore } from '@/lib/game/scoring';
 import { trackEvent } from '@/lib/analytics/events';
 
+function formatClock(totalSeconds: number) {
+  const minutes = Math.floor(totalSeconds / 60)
+    .toString()
+    .padStart(2, '0');
+  const seconds = Math.max(0, totalSeconds % 60)
+    .toString()
+    .padStart(2, '0');
+  return `${minutes}:${seconds}`;
+}
+
+function getQuestionTypeLabel(type: string) {
+  const labels: Record<string, string> = {
+    DIRECTOR: 'Director/a',
+    CAST: 'Elenco',
+    YEAR: 'Año de estreno',
+    OSCAR: 'Oscars',
+    INTRUDER: 'Película intrusa'
+  };
+
+  return labels[type] ?? 'Pregunta de cine';
+}
+
 export default function SoloPlayPage() {
   const router = useRouter();
   const [showFeedback, setShowFeedback] = useState(false);
@@ -24,6 +46,7 @@ export default function SoloPlayPage() {
   const question = useMemo(() => session?.questions[currentIndex], [session, currentIndex]);
   const selected = answers[currentIndex];
   const progressPercentage = session ? Math.round(((currentIndex + 1) / session.questions.length) * 100) : 0;
+  const remainingQuestions = session ? session.questions.length - (currentIndex + 1) : 0;
   const correctAnswers = session
     ? session.questions.reduce((total, currentQuestion, index) => {
         if (answers[index] === currentQuestion.correctIndex) {
@@ -165,7 +188,9 @@ export default function SoloPlayPage() {
     <section className="flex min-h-0 flex-1 flex-col gap-3 py-1">
       <header className="space-y-2">
         <div className="flex items-center justify-between gap-2 text-xs font-semibold uppercase tracking-wide text-cyan-200">
-          <span className="rounded-full border border-cyan-400/70 bg-cyan-950/70 px-2 py-1">{elapsedSeconds}s</span>
+          <span className="info-chip" aria-label={`Tiempo transcurrido ${formatClock(elapsedSeconds)}`}>
+            {formatClock(elapsedSeconds)}
+          </span>
           <button
             type="button"
             onClick={abandonGame}
@@ -176,8 +201,8 @@ export default function SoloPlayPage() {
         </div>
         <div className="space-y-1.5" aria-label="Progreso de partida">
           <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-cyan-200">
-            <span>Progreso</span>
-            <span aria-live="polite">{progressPercentage}%</span>
+            <span>Progreso · {currentIndex + 1}/10</span>
+            <span aria-live="polite">{progressPercentage}% completado</span>
           </div>
           <div
             role="progressbar"
@@ -190,16 +215,25 @@ export default function SoloPlayPage() {
             <div className="h-full rounded-full bg-cyan-300 transition-all" style={{ width: `${progressPercentage}%` }} />
           </div>
         </div>
-        <p className="text-base font-semibold text-cyan-200">Pregunta {currentIndex + 1} de 10</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-base font-semibold text-cyan-200">Pregunta {currentIndex + 1} de 10</p>
+          <span className="info-chip">{getQuestionTypeLabel(question.type)}</span>
+        </div>
         <p className="text-sm font-medium text-slate-200" aria-live="polite">
           Aciertos: <span className="font-bold text-cyan-100">{correctAnswers}</span> · Restan{' '}
-          <span className="font-bold text-cyan-100">{session.questions.length - (currentIndex + 1)}</span>
+          <span className="font-bold text-cyan-100">{remainingQuestions}</span>
         </p>
         <h1 className="text-xl font-semibold leading-snug">{question.prompt}</h1>
+        <div className="flex flex-wrap gap-2" aria-label="Pasos de respuesta">
+          <span className="info-chip">1) Selecciona</span>
+          <span className="info-chip">2) Confirma</span>
+        </div>
         <p className="text-sm text-slate-200" aria-live="polite">
           {showFeedback
             ? 'Revisa el resultado y continúa con Enter o tocando el botón de abajo.'
-            : 'Elige una opción y confirma tu respuesta para evitar toques accidentales.'}
+            : pendingAnswer === null
+              ? 'Selecciona una alternativa para habilitar el botón de confirmar.'
+              : `Opción ${String.fromCharCode(65 + pendingAnswer)} seleccionada. Puedes cambiarla antes de confirmar.`}
         </p>
       </header>
 
@@ -245,9 +279,9 @@ export default function SoloPlayPage() {
               if (pendingAnswer === null) return;
               submitAnswer(pendingAnswer);
             }}
-            className="h-14 w-full rounded-2xl border-2 border-cyan-300 bg-cyan-200 text-lg font-bold text-slate-950 shadow-sm disabled:opacity-60"
+            className="btn-primary"
           >
-            Confirmar respuesta
+            {pendingAnswer === null ? 'Selecciona una opción' : 'Confirmar respuesta'}
           </button>
         ) : null}
         {showFeedback ? (
@@ -259,6 +293,11 @@ export default function SoloPlayPage() {
             <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-cyan-200">
               {selected === question.correctIndex ? '¡Respuesta correcta!' : 'Respuesta incorrecta'}
             </p>
+            {selected !== question.correctIndex ? (
+              <p className="mb-1 text-xs font-semibold text-cyan-100">
+                Respuesta correcta: {question.options[question.correctIndex]}
+              </p>
+            ) : null}
             <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-cyan-200">Dato curioso</p>
             <p>{question.explanation}</p>
           </div>
@@ -268,7 +307,7 @@ export default function SoloPlayPage() {
           type="button"
           onClick={nextQuestion}
           disabled={!showFeedback}
-          className="h-14 w-full rounded-2xl border-2 border-cyan-300 bg-cyan-200 text-lg font-bold text-slate-950 shadow-sm disabled:opacity-60"
+          className="btn-primary"
         >
           {currentIndex === 9 ? 'Ver resultados' : 'Siguiente pregunta'}
         </button>

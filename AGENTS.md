@@ -41,3 +41,7 @@
 ## Aprendizajes de implementación
 - En preguntas de opción múltiple mobile-first, usar patrón de doble acción (seleccionar + confirmar) reduce errores de toque sin añadir ruido cuando el CTA es único y persistente.
 - Mostrar estado de progreso con tiempo y preguntas restantes disminuye ansiedad del usuario y mejora percepción de control.
+
+- Para reducir ansiedad en móvil, mostrar expectativas antes de empezar (duración estimada + dinámica de interacción) mejora confianza y tasa de inicio.
+- En feedback de error, siempre mostrar la respuesta correcta en una línea incrementa aprendizaje sin añadir complejidad visual.
+- Estandarizar clases utilitarias para CTA/tarjetas/chips evita divergencia visual y acelera iteraciones UX sin duplicación.
